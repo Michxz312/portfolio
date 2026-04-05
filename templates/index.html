@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Portfolio</title>
+    <meta name="description" content="Personal portfolio" />
+    <link rel="icon" href="/favicon.ico" />
+    <!-- Add your stylesheet(s) here -->
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="#" class="logo">Michealea Faustine</a>
+            <ul>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero">
+            <h1>Hi</h1>
+            <a href="#projects" class="cta">work</a>
+        </section>
+
+        <section id="projects">
+            <h2>Projects</h2>
+            <!-- TODO: project cards go here -->
+             <p> project cards tbd</p>
+        </section>
+
+        <section id="about">
+            <h2>About</h2>
+            <p>Short bio or summary.</p>
+        </section>
+
+        <section id="contact">
+            <h2>Contact</h2>
+            <p>Email: <a href="mailto:michealeafaustin@gmail.com">michealeafaustin@gmail.com</a></p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; <span id="year"></span></p>
+    </footer>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html></section>
