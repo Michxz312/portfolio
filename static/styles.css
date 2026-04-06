@@ -1,0 +1,33 @@
+body {
+    margin: 0;
+    font-family: monospace;
+}
+
+.navbar {
+    background-color: black;
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.name {
+    color: #fff;
+    font-size: 0.8rem;
+    text-decoration: none;
+}
+
+ul {
+    display: flex;
+    list-style: none;
+}
+
+ul li {
+    margin-right: 20px;
+}
+
+ul li a{
+    color: #fff;
+    text-decoration: none;
+    font-size: medium;
+}

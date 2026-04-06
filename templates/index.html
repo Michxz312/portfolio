@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Portfolio</title>
     <meta name="description" content="Personal portfolio" />
-    <link rel="stylesheet" href="{{url_for('static', filename='css/styles.css')}}" />
+    <link rel="stylesheet" href="{{url_for('static', filename='/styles.css')}}" />
 </head>
 <body>
     <header>
-        <nav>
-            <a href="#" class="logo">Michealea Faustine</a>
+        <nav class="navbar">
+            <a href="#" class="name">Michealea Faustine</a>
             <ul>
                 <li><a href="{{ url_for('project')}}">Projects</a></li>
                 <li><a href="{{ url_for('about')}}">About</a></li>
