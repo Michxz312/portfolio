@@ -14,4 +14,3 @@ if __name__ == "__main__":
     #insert_customer(customer_data)
     first_five = customer_data[:5]
     last_five = customer_data[-5:]
-    print(first_five)
