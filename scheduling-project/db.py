@@ -1,12 +1,12 @@
 import pymysql
-
+import os
 
 def create_connection():
     return pymysql.connect(
         host="localhost",
-        db="mydb",
         user="root",
-        password="",
+        database="mydb",
+        password=os.getenv("MYSQL_PASSWORD"),
         charset="utf8",
         cursorclass = pymysql.cursors.DictCursor
     )
@@ -18,6 +18,15 @@ def insert_employees(employee):
     for e in employee:
         e["training_level"] = ','.join(e['training_level'])
     cursor.execute(sql, (employee))
+    con.commit()
+    cursor.close()
+    con.close()
+
+def insert_customer(customer):
+    con = create_connection()
+    cursor = con.cursor()
+    sql = "INSERT INTO customer (day, shift, shift_demand) INTO VALUES(%s,%s,%s)"
+    cursor.execute(sql, (customer))
     con.commit()
     cursor.close()
     con.close()
