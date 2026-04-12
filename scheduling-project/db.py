@@ -14,10 +14,10 @@ def create_connection():
 def insert_employees(employee):
     con = create_connection()
     cursor = con.cursor()
-    sql = "INSERT INTO employees (skill_level, training, salary) INTO VALUES(%s,%s,%s,%s)"
+    sql = "INSERT INTO employees (skill_level, training, salary) INTO VALUES(%s,%s,%s)"
     for e in employee:
-        e["training_level"] = ','.join(e['training_level'])
-    cursor.execute(sql, (employee))
+        training = ','.join(e['training_level'])
+        cursor.execute(sql, (e['skill_level'], training, e['salary']))
     con.commit()
     cursor.close()
     con.close()
@@ -25,7 +25,7 @@ def insert_employees(employee):
 def insert_customer(customer):
     con = create_connection()
     cursor = con.cursor()
-    sql = "INSERT INTO customer (day, shift, shift_demand) INTO VALUES(%s,%s,%s)"
+    sql = "INSERT INTO customers (day, shift, shift_demand) INTO VALUES(%s,%s,%s)"
     cursor.execute(sql, (customer))
     con.commit()
     cursor.close()
