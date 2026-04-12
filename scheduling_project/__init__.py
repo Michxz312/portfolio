@@ -3,7 +3,8 @@ from flask import Blueprint
 scheduling_bp = Blueprint(
     'scheduling',
     __name__,
-    template_folder = "../../templates/scheduling"
+    template_folder = "../../templates/scheduling",
+    url_prefix="/scheduling"
 )
 
 from . import routes

@@ -1,4 +1,4 @@
-from flask import render_template, request
+from flask import Flask, render_template, request
 from scheduling_project import scheduling_bp
 
 app = Flask(__name__)
@@ -18,7 +18,7 @@ def contact():
 
 @app.route('/project')
 def project():
-    return render_template('project.html')
+    return render_template('projects/project.html')
 
 if __name__ == '__main__':
     app.run(debug = True)
