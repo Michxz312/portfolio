@@ -1,7 +1,8 @@
 from flask import render_template, request
-
+from scheduling_project import scheduling_bp
 
 app = Flask(__name__)
+app.register_blueprint(scheduling_bp)
 
 @app.route('/')
 def home():
