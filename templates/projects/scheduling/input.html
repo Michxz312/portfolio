@@ -3,5 +3,15 @@
 {% block content %}
     <section id="input">
         <h2>Input</h2>
+        {% for e in employees %}
+        <ul>
+            <li>{{ e }}</li>
+        </ul>
+        {% endfor %}
+        {% for c in customers %}
+        <ul>
+            <li>{{ c }}</li>
+        </ul>
+        {% endfor %}
     </section>
 {% endblock %}

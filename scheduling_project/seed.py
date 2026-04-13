@@ -1,7 +1,7 @@
 import pymysql
-from config import skill_levels, tasks_with_min_levels, distribution, salary_weight, days, demand_distribution, day_label, shift_label, enumerate_shift
-from utils import generate_employee_data_custom_distribution, generate_customer_data_custom_distribution
-from db import create_connection, insert_employees, insert_customer
+from scheduling_project.config import skill_levels, tasks_with_min_levels, distribution, salary_weight, days, demand_distribution, day_label, shift_label, enumerate_shift
+from scheduling_project.utils import generate_employee_data_custom_distribution, generate_customer_data_custom_distribution
+from scheduling_project.db import create_connection, insert_employees, insert_customer
 
 def reset_data():
     con = create_connection()
@@ -22,7 +22,7 @@ def seed():
     
     insert_employees(employees_data)
     insert_customer(customer_data)
-    
+    print("INSERTING EMPLOYEES:", len(employees_data))
 
 if __name__ == "__main__":
     seed()

@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request
 from scheduling_project import scheduling_bp
+from scheduling_project.seed import seed
 
 app = Flask(__name__)
 app.register_blueprint(scheduling_bp)
@@ -21,4 +22,5 @@ def project():
     return render_template('projects/project.html')
 
 if __name__ == '__main__':
+    seed()
     app.run(debug = True)

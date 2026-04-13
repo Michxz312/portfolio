@@ -14,10 +14,13 @@ def create_connection():
 def insert_employees(employee):
     con = create_connection()
     cursor = con.cursor()
-    sql = "INSERT INTO employees (skill_level, training, salary) INTO VALUES(%s,%s,%s)"
+    sql = "INSERT INTO employees (skill_level, training, salary) VALUES(%s,%s,%s)"
+    data = []
     for e in employee:
-        training = ','.join(e['training_level'])
-        cursor.execute(sql, (e['skill_level'], training, e['salary']))
+        skill, training_list, salary = e
+        training = ','.join(map(str, training_list))
+        data.append((skill, training, salary))
+    cursor.executemany(sql, data)
     con.commit()
     cursor.close()
     con.close()
@@ -25,8 +28,28 @@ def insert_employees(employee):
 def insert_customer(customer):
     con = create_connection()
     cursor = con.cursor()
-    sql = "INSERT INTO customers (day, shift, shift_demand) INTO VALUES(%s,%s,%s)"
-    cursor.execute(sql, (customer))
+    sql = "INSERT INTO customers (day_label, shift, shift_demand) VALUES(%s,%s,%s)"
+    cursor.executemany(sql, customer)
     con.commit()
     cursor.close()
     con.close()
+
+def get_employee():
+    con = create_connection()
+    cursor = con.cursor()
+    sql = "SELECT * FROM employees"
+    cursor.execute(sql)
+    employees = cursor.fetchall()
+    cursor.close()
+    con.close()
+    return employees
+
+def get_customer():
+    con = create_connection()
+    cursor = con.cursor()
+    sql = "SELECT * FROM customers"
+    cursor.execute(sql)
+    customers = cursor.fetchall()
+    cursor.close()
+    con.close()
+    return customers
