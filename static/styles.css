@@ -31,3 +31,18 @@ ul li a{
     text-decoration: none;
     font-size: medium;
 }
+
+.table-container {
+    max-height: 300px;
+    max-width: 300px;
+    overflow-y: auto;
+    overflow-x: auto;
+    border: 1px solid #000;
+}
+
+thead th {
+    position: sticky;
+    top: 0;
+    background: #fff;
+    z-index: 1;
+}

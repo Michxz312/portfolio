@@ -13,9 +13,6 @@ def input_page():
     # get user input/process data
     employees_data = get_employee()
     customers_data = get_customer()
-    print("EMPLOYEES:", employees_data)
-    print("CUSTOMERS:", customers_data)
-    print(len(employees_data))
     return render_template('projects/scheduling/input.html', employees=employees_data, customers=customers_data)
 
 @scheduling_bp.route('/result')

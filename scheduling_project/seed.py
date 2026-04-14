@@ -22,7 +22,6 @@ def seed():
     
     insert_employees(employees_data)
     insert_customer(customer_data)
-    print("INSERTING EMPLOYEES:", len(employees_data))
-
+    
 if __name__ == "__main__":
     seed()
