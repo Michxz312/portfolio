@@ -15,7 +15,7 @@ def input_page():
     customers_data = get_customer()
     return render_template('projects/scheduling/input.html', employees=employees_data, customers=customers_data)
 
-@scheduling_bp.route('/result')
+@scheduling_bp.route('/result', methods=["GET", "POST"])
 def result_page():
     # TODO: solve and show result
     return render_template('projects/scheduling/result.html')
