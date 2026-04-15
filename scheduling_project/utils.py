@@ -1,5 +1,7 @@
+from config import enumerate_shift, tasks_with_min_levels, skill_levels
 import numpy as np
 import random
+import pulp
 import csv
 
 def generate_employee_data_custom_distribution(num_employees, skill_levels, tasks_with_min_levels, salary_weight, distribution):
@@ -53,6 +55,56 @@ def generate_customer_data_custom_distribution(max, days, distribution):
     
     return customer_data
 
+def solve(employees_data, num_employees, customers, skill_levels, tasks_with_min_levels):
+    prob = pulp.LpProblem("Shift_Assignment", pulp.LpMinimize)
+
+    # Create variable X_ijd
+    x = pulp.LpVariable.dicts("x", [(i, j, d) for i in range(num_employees) for j in range(7) for d in range(5)], cat="Binary")
+    salaries = [employee[2] for employee in employees_data]
+    training_levels = [e[1] for e in employees_data]
+
+    prob += pulp.lpSum(
+        x[i, j, d] * salaries[i] 
+        for i in range(num_employees) 
+        for j in range(7) 
+        for d in range(5)
+    )
+
+    add_constraint1(prob, x, num_employees)
+    add_constraint2(prob, customers, x, num_employees)
+    add_constraint3(prob, employees_data, customers, num_employees, x, skill_levels, tasks_with_min_levels)
+
+    prob.solve()
+    print("Status:", pulp.LpStatus[prob.status])
+
+# constraint 1: An employee can be assigned to at most one shift for each day
+def add_constraint1(prob, x, num_employees):
+    for i in range(num_employees):
+        for d in range(5):
+            prob += pulp.lpSum(x[i, j, d] for j in range(7)) <= 1
+
+# constraint 2: Each shifts has the required number of employees at day d
+def add_constraint2(prob, customer, x, num_employees):
+    d_jw = np.zeros((5,7))
+    for day, shift, demand in customer:
+        d_jw[day, shift] = demand
+    for d in range(5):
+        for j in range(7):
+            prob += pulp.lpSum(x[i, j, d] for i in range(num_employees)) == d_jw[d, j]
+
+# constraint 3: Ensure that only employees with the required skill level can be assigned to shifts
+def add_constraint3(prob, employees_data, customers, num_employees, x, skill_levels, tasks_with_min_levels):
+    z = {} 
+    for day, shift, demand in customers:
+        z[(enumerate_shift[shift])] = tasks_with_min_levels[shift]
+    for i in range(num_employees):
+        for j in range(7):
+            for d in range(5):
+                    # if skill level of employee i is not as high as skill required to do shift j
+                    if skill_levels[employees_data[i][0]] < z[(j)]:
+                        # don't assign employee i to shift j at any day d
+                        prob += x[i, j, d] == 0
+             
 def save_to_csv(customer_data):
     csv_file_path = "customer_data.csv"
     with open(csv_file_path, mode='w', newline='') as file:
