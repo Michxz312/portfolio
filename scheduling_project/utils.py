@@ -1,4 +1,4 @@
-from config import enumerate_shift, tasks_with_min_levels, skill_levels
+from scheduling_project.config import enumerate_shift, tasks_with_min_levels, skill_levels
 import numpy as np
 import random
 import pulp
