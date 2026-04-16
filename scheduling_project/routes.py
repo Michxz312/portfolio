@@ -1,6 +1,8 @@
 from flask import render_template, request, jsonify
 from . import scheduling_bp
 from scheduling_project.db import get_customer, get_employee
+from scheduling_project.utils import solve
+from scheduling_project.config import enumerate_shift, tasks_with_min_levels, skill_levels
 
 @scheduling_bp.route('/')
 def intro_page():
@@ -17,12 +19,13 @@ def input_page():
 @scheduling_bp.route('/result', methods=["POST"])
 def result_api():
     data = request.get_json()
-    if not data:
-        return jsonify({"error": "none"})
-    
     employees = data.get("employees_data")
-    print(employees)
-    return jsonify(employees)
+    customers = data.get("customers_data")
+    num_employees = len(employees)
+    
+    result = solve(employees, num_employees, customers, skill_levels, tasks_with_min_levels)
+
+    return jsonify(result)
 
 @scheduling_bp.route('/result_page')
 def result_page():
