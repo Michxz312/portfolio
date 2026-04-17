@@ -76,14 +76,24 @@ def solve(employees_data, num_employees, customers, skill_levels, tasks_with_min
         for j in range(7) 
         for d in range(5)
     )
-
+    print(employees)
     add_constraint1(prob, x, e_id)
-    add_constraint2(prob, customers, x, num_employees)
-    add_constraint3(prob, employees_data, customers, num_employees, x, skill_levels, tasks_with_min_levels)
+    add_constraint2(prob, customers, x, e_id)
 
     prob.solve()
-    print("Status:", pulp.LpStatus[prob.status])
+    
     result = []
+    index_shift = {v:k for k,v in enumerate_shift.items()}
+    index_day = {v:k for k,v in days.items()}
+    for i in e_id:
+        for j in range(7):
+            for d in range(5):
+                if x[(i,j,d)].varValue == 1:
+                    result.append({
+                        "id": i,
+                        "day": index_day[d],
+                        "shift": index_shift[j]
+                    })
 
     return result
 
@@ -96,24 +106,16 @@ def add_constraint1(prob, x, e_id):
 # constraint 2: Each shifts has the required number of employees at day d
 def add_constraint2(prob, customer, x, e_id):
     d_jw = np.zeros((5,7))
-    for day, shift, demand in customer:
-        d = days["day_label"]
+    for row in customer:
+        day = row['day_label']
+        shift = row['shift']
+        demand = row['shift_demand']
+        d = days[day]
         s = enumerate_shift[shift]
-        d_jw[d, s] = demand
+        d_jw[d,s] = demand
     for d in range(5):
         for j in range(7):
-            prob += pulp.lpSum(
-                x[i, j, d] for i in e_id
-            ) == d_jw[d, j]
-
-# constraint 3: Ensure that only employees with the required skill level can be assigned to shifts
-def add_constraint3(prob, e_id, x, skill_levels, tasks_with_min_levels):
-    for i in e_id:
-        for j in range(7):
-            if skill_levels[i] < tasks_with_min_levels[j]:
-                   prob += pulp.lpSum(
-                       x[i, j, d] for d in range(5)
-                    ) == 0
+            prob += pulp.lpSum(x[i, j, d] for i in e_id) == d_jw[d,j]
              
 def save_to_csv(customer_data):
     csv_file_path = "customer_data.csv"

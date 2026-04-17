@@ -4,4 +4,16 @@
     <section id="Result">
         <h2>Result</h2>
     </section>
+    <div id="schedule-result">
+        <table id="schedule-table">
+            <thead>
+                <tr id="schedule-header">
+                    <th>Day</th>
+                </tr>
+            </thead>
+            <tbody id="schedule-body"></tbody>
+        </table>
+    </div>
+
+    <script src="{{ url_for('static', filename='result.js') }}"></script>
 {% endblock %}

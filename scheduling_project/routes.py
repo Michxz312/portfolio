@@ -29,5 +29,4 @@ def result_api():
 
 @scheduling_bp.route('/result_page')
 def result_page():
-    # TODO: solve and show result
     return render_template('projects/scheduling/result.html')
