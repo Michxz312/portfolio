@@ -61,7 +61,12 @@ thead th {
     text-align: right;
 }
 
-.intro-button {
+.intro-button a{
     display: inline-block;
     text-decoration: none;
+    color: #fff;
+}
+
+.intro-button {
+    background-color: #000;
 }

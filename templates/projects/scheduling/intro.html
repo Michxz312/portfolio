@@ -32,6 +32,18 @@
     </ul>
 
     <h3>Formulation</h3>
+    <p>Objective</p>
+    <p>\[ \sum_{i}\sum_{j}\sum_{d}(x_{ijd} * s_{i}) \]</p>
+    <p>\( s_{i} \) is the salary of employee i</p>
+
+    <p>Constraints</p>
+    <ol>
+        <li>An employee can be assigned to at most one shift for each day</li>
+        <li>Ensure that only employees with the required skill level can be assigned to shifts</li>
+        <li>For each shift, select the employee with the highest training level</li>
+        <li>Ensure that the selected employee has the lowest salary among those with the highest training level for each shift</li>
+        <li>Each shifts has the required number of employees at day d</li>
+    </ol>
 
     <h3>Implementation and Result</h3>
     <button class="intro-button">
