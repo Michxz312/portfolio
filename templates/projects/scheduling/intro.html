@@ -2,6 +2,41 @@
 
 {% block content %}
     <section id="projects">
-        <h2>Scheduling</h2>
+        <h2>Scheduling Shifts for a Bank</h2>
     </section>
+
+    <h3>Problem</h3>
+    <p>How can we assign employees to suitable shifts in a financial institution to minimize labor costs while considering employee skill levels and salary?</p>
+    
+    <h3>Parameters and Variables</h3>
+    <p>To simplify the problem and ensuring the scalability of the problem, we have to define the parameters and variables.</p>
+    <p>Parameter for the shifts:</p>
+    <ol>
+        <li>Shift j: There are seven types of shifts</li>
+        <li>Weekdays w: We will assume that all bank employees only work five days a week, so the days are enumerated to \( 0 \leq w \leq 4 \)</li>
+        <li>Demand \( d_{jw} \): The demand for each weekdays are different for each type of shifts.</li>
+    </ol>
+    <p>Parameter for the shifts:</p>
+    <ol>
+        <li>Employee i: Each employee will have a unique id.</li>
+        <li>Skill levels l: The skill levels will be divided into four levels, \( 0 \leq l \leq 3 \)</li>
+        <li>Training \( t_{ij} \): This is an array of length 7, which is the number of the types of shift</li>
+        <li>Salary s: The salary of each employee is related to the training level, defined as  
+            \[ s = k + a \sum_{i}(t_{i,1}+t_{i,2}) + b\sum_{i}(t_{i,3}) + c\sum_{i}(t_{i,4}+t_{i,5}+t_{i,6}) + d\sum_{i}(t_{i,7}) \]</li>
+        </ol>
+    <p>Decision variables:</p>
+    <p>In optimization problems, decision variables are the variables that are changable to determine the goal of the problem. 
+        In order to get the optimal result, the solver needs to determine a value for each decision variables.</p>
+    <ul>
+        <li>Let \( x_{ijd} \in (0,1) \) be a binary variable, where \( x_{ijd} = 1 \) if employee i is assigned to shift j at day d, and 0 otherwise.</li>
+    </ul>
+
+    <h3>Formulation</h3>
+
+    <h3>Implementation and Result</h3>
+    <button class="intro-button">
+        <a href="{{ url_for('scheduling.input_page') }}">Example</a>
+    </button>
+    
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 {% endblock %}

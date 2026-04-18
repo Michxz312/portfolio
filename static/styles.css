@@ -60,3 +60,8 @@ thead th {
     padding: 8px;
     text-align: right;
 }
+
+.intro-button {
+    display: inline-block;
+    text-decoration: none;
+}
