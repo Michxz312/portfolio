@@ -76,7 +76,6 @@ def solve(employees_data, num_employees, customers, skill_levels, tasks_with_min
         for j in range(7) 
         for d in range(5)
     )
-    print(employees)
     add_constraint1(prob, x, e_id)
     add_constraint2(prob, customers, x, e_id)
 

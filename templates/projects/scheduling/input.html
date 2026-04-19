@@ -1,12 +1,19 @@
 {% extends "index.html" %}
 
 {% block content %}
-<script id="data" type="application/json">
-    {{ {'employees':employees, 'customers': customers} | tojson }}
-</script>
-
-    <section id="input">
+    <section id="form">
         <h2>Input</h2>
+        <form action="/scheduling/input" method = "post">
+            <label for ="Number of Employees">Number of Employees: </label>
+            <input type="number" name="employees">
+
+            <label for ="Number of Customers">Number of Customers: </label>
+            <input type="number" name="customers">
+
+            <button type = "submit">Update</button>
+        </form>
+    </section>
+    <section id="input">
         <h3>Employees</h3>
         <div class = "table-container">
             <table>

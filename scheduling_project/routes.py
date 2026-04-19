@@ -1,8 +1,8 @@
 from flask import render_template, request, jsonify
 from . import scheduling_bp
-from scheduling_project.db import get_customer, get_employee
+from scheduling_project.db import get_customer, get_employee, insert_customer, insert_employees, reset_all
 from scheduling_project.utils import solve, generate_customer_data_custom_distribution, generate_employee_data_custom_distribution
-from scheduling_project.config import tasks_with_min_levels, skill_levels
+from scheduling_project.config import tasks_with_min_levels, skill_levels, salary_weight, distribution, demand_distribution, days
 
 @scheduling_bp.route('/')
 def intro_page():
@@ -11,7 +11,15 @@ def intro_page():
 
 @scheduling_bp.route('/input', methods=["GET", "POST"])
 def input_page():
-    # get user input/process data
+    if request.method == "POST":
+        num_employees = int(request.form.get("employees") or 1)
+        num_customers = int(request.form.get("customers") or 1)
+        employees = generate_employee_data_custom_distribution(num_employees, skill_levels, tasks_with_min_levels, salary_weight, distribution)
+        customers = generate_customer_data_custom_distribution(num_customers, days, demand_distribution)   
+        reset_all()
+        insert_employees(employees)
+        insert_customer(customers)
+    # get current DB
     employees_data = get_employee()
     customers_data = get_customer()
     return render_template('projects/scheduling/input.html', employees=employees_data, customers=customers_data)
