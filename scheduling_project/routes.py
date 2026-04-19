@@ -1,7 +1,7 @@
 from flask import render_template, request, jsonify
 from . import scheduling_bp
 from scheduling_project.db import get_customer, get_employee, insert_customer, insert_employees, reset_all
-from scheduling_project.utils import solve, generate_customer_data_custom_distribution, generate_employee_data_custom_distribution
+from scheduling_project.utils import get_result, generate_customer_data_custom_distribution, generate_employee_data_custom_distribution
 from scheduling_project.config import tasks_with_min_levels, skill_levels, salary_weight, distribution, demand_distribution, days
 
 @scheduling_bp.route('/')
@@ -29,11 +29,21 @@ def result_api():
     data = request.get_json()
     employees = data.get("employees_data")
     customers = data.get("customers_data")
-    num_employees = len(employees)
     
-    result = solve(employees, num_employees, customers, skill_levels, tasks_with_min_levels)
+    result = get_result(employees, customers)
+    status = result.get("status")
+    print(result)
 
-    return jsonify(result)
+    if status != "Optimal":
+        return jsonify({
+            "status": status,
+            "data": None
+        })
+
+    return jsonify({
+        "status": status,
+        "data": result.get("data")
+    })
 
 @scheduling_bp.route('/result_page')
 def result_page():

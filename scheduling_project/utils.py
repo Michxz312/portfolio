@@ -1,4 +1,4 @@
-from scheduling_project.config import enumerate_shift, days
+from scheduling_project.config import enumerate_shift, days, tasks_with_min_levels, skill_levels
 import random
 import numpy as np
 import pulp
@@ -55,7 +55,7 @@ def generate_customer_data_custom_distribution(max, days, distribution):
     
     return customer_data
 
-def solve(employees_data, num_employees, customers, skill_levels, tasks_with_min_levels):
+def solve(employees_data, customers):
     prob = pulp.LpProblem("Shift_Assignment", pulp.LpMinimize)
 
     employees = employees_data
@@ -94,7 +94,23 @@ def solve(employees_data, num_employees, customers, skill_levels, tasks_with_min
                         "shift": index_shift[j]
                     })
 
-    return result
+    return {
+        "status": pulp.LpStatus[prob.status],
+        "assignments": result
+    }
+
+def get_result(employees_data, customers_data):
+    result = solve(employees_data, customers_data)
+    status = result["status"]
+    if status != "Optimal":
+        return {
+            "status": status,
+            "data": None
+        }
+    return {
+        "status": status,
+        "data": result["assignments"]
+    }
 
 # constraint 1: An employee can be assigned to at most one shift for each day
 def add_constraint1(prob, x, e_id):

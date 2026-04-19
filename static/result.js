@@ -1,27 +1,22 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const section = document.getElementById("result")
     const result = JSON.parse(localStorage.getItem("result"));
-    console.log(result);
+    console.log(result.data);
 
-    if (!result) {
-        section.innerHTML = "No result"
-        return
+    if (result.status !== "Optimal") {
+        alert(result.status);
+        window.location.href = "/scheduling/input"
+        return;
     }
 
-    schedule = {};
+    const schedule = {};
+    assignment = result.data || [];
 
-    result.forEach(row => {
-        const day = row.day;
-        const id = row.id;
-        const shift = row.shift;
+    assignment.forEach(row => {
+        const {day, id, shift} = row;
 
-        if (!schedule[day]) {
-            schedule[day] = {};
-        }
+        if (!schedule[day]) schedule[day] = {};
 
-        if (!schedule[day][shift]) {
-            schedule[day][shift] = [];
-        }
+        if (!schedule[day][shift]) schedule[day][shift] = [];
 
         schedule[day][shift].push(id)
     });
