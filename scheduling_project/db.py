@@ -53,3 +53,12 @@ def get_customer():
     cursor.close()
     con.close()
     return customers
+
+def reset_all():
+    con = create_connection()
+    cursor = con.cursor()
+    cursor.execute("DELETE FROM employees")
+    cursor.execute("DELETE FROM customers")
+    con.commit()
+    cursor.close()
+    con.close()

@@ -38,11 +38,17 @@
 
     <p>Constraints</p>
     <ol>
-        <li>An employee can be assigned to at most one shift for each day</li>
+        <li>An employee can be assigned to at most one shift for each day
+            <p>\[ \sum_{i}\sum_{d}(x_{ijd} \leq 1) \forall(j) \]</p>
+        </li>
+        <li>Each shifts has the required number of employees at day d
+            <p>\[ \sum_{i}(x_{ijd}) = d_{jd} \forall(j), \forall(d) \]</p>
+        </li>
         <li>Ensure that only employees with the required skill level can be assigned to shifts</li>
+        
         <li>For each shift, select the employee with the highest training level</li>
-        <li>Ensure that the selected employee has the lowest salary among those with the highest training level for each shift</li>
-        <li>Each shifts has the required number of employees at day d</li>
+        
+        <li>Ensure that the selected employee has the lowest salary among those with the highest training level for each shift</li> 
     </ol>
 
     <h3>Implementation and Result</h3>

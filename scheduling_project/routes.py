@@ -1,8 +1,8 @@
 from flask import render_template, request, jsonify
 from . import scheduling_bp
 from scheduling_project.db import get_customer, get_employee
-from scheduling_project.utils import solve
-from scheduling_project.config import enumerate_shift, tasks_with_min_levels, skill_levels
+from scheduling_project.utils import solve, generate_customer_data_custom_distribution, generate_employee_data_custom_distribution
+from scheduling_project.config import tasks_with_min_levels, skill_levels
 
 @scheduling_bp.route('/')
 def intro_page():
