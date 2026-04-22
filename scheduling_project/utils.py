@@ -78,6 +78,7 @@ def solve(employees_data, customers):
     )
     add_constraint1(prob, x, e_id)
     add_constraint2(prob, customers, x, e_id)
+    add_constraint3(prob, x, skill_level, e_id, employees)
 
     prob.solve()
     
@@ -131,6 +132,22 @@ def add_constraint2(prob, customer, x, e_id):
     for d in range(5):
         for j in range(7):
             prob += pulp.lpSum(x[i, j, d] for i in e_id) == d_jw[d,j]
+
+# constraint 3: Ensure that only employees with the required skill level can be assigned to shifts
+def add_constraint3(prob, x, skill_level, e_id, employees):
+    required = {}
+    for a,l in enumerate_shift.items():
+        required[l] = tasks_with_min_levels[a]
+
+    for i in e_id:
+        employee_level = skill_levels[skill_level[i]]
+        for j in range(7):
+            if employee_level < required[j]:
+                for d in range(5):
+                    prob += x[i,j,d] == 0
+            
+            
+
              
 def save_to_csv(customer_data):
     csv_file_path = "customer_data.csv"

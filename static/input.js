@@ -1,5 +1,3 @@
-console.log("loaded")
-
 document.getElementById("result").addEventListener("click", async() => {
     console.log("clicked")
 
