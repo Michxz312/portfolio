@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = "/scheduling/input"
         return;
     }
-
+    console.log(result.objective)
     const p = document.getElementById("salary")
     const salary = document.createElement("p");
     salary.textContent = result.objective;

@@ -78,9 +78,16 @@ def solve(employees_data, customers):
     )
     add_constraint1(prob, x, e_id)
     add_constraint2(prob, customers, x, e_id)
-    add_constraint3(prob, x, skill_level, e_id, employees)
+    add_constraint3(prob, x, skill_level, e_id)
+    add_constraint4(prob, training_levels, salaries, x, e_id)
 
     prob.solve()
+    total_salary = sum(
+        salaries[i]*x[i,j,d].value()
+        for i in e_id
+        for j in range(7)
+        for d in range(5)
+    ) 
     
     result = []
     index_shift = {v:k for k,v in enumerate_shift.items()}
@@ -98,7 +105,7 @@ def solve(employees_data, customers):
     return {
         "status": pulp.LpStatus[prob.status],
         "assignments": result,
-        "optimal": pulp.value(prob.objective)
+        "optimal": total_salary
     }
 
 def get_result(employees_data, customers_data):
@@ -137,7 +144,7 @@ def add_constraint2(prob, customer, x, e_id):
             prob += pulp.lpSum(x[i, j, d] for i in e_id) == d_jw[d,j]
 
 # constraint 3: Ensure that only employees with the required skill level can be assigned to shifts
-def add_constraint3(prob, x, skill_level, e_id, employees):
+def add_constraint3(prob, x, skill_level, e_id):
     required = {}
     for a,l in enumerate_shift.items():
         required[l] = tasks_with_min_levels[a]
@@ -149,7 +156,15 @@ def add_constraint3(prob, x, skill_level, e_id, employees):
                 for d in range(5):
                     prob += x[i,j,d] == 0
             
-            
+# constaint 4: For each shift, select the employee with the highest training level, as possible
+def add_constraint4(prob, training_levels, salaries, x, e_id):
+    big_value = 10000;
+    prob += pulp.lpSum(
+        (big_value*training_levels[i][j]-salaries[i])*x[i,j,d]
+        for i in e_id
+        for j in range(7)
+        for d in range(5)
+    )
 
              
 def save_to_csv(customer_data):
