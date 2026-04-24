@@ -97,7 +97,8 @@ def solve(employees_data, customers):
 
     return {
         "status": pulp.LpStatus[prob.status],
-        "assignments": result
+        "assignments": result,
+        "optimal": pulp.value(prob.objective)
     }
 
 def get_result(employees_data, customers_data):
@@ -106,11 +107,13 @@ def get_result(employees_data, customers_data):
     if status != "Optimal":
         return {
             "status": status,
-            "data": None
+            "data": None,
+            "objective": None
         }
     return {
         "status": status,
-        "data": result["assignments"]
+        "data": result["assignments"],
+        "objective": result["optimal"]
     }
 
 # constraint 1: An employee can be assigned to at most one shift for each day

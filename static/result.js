@@ -8,6 +8,11 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
+    const p = document.getElementById("salary")
+    const salary = document.createElement("p");
+    salary.textContent = result.objective;
+    p.appendChild(salary);
+
     const schedule = {};
     assignment = result.data || [];
 
