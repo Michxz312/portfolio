@@ -33,22 +33,20 @@
 
     <h3>Formulation</h3>
     <p>Objective</p>
+    <p>Minimize salary</p>
     <p>\[ \sum_{i}\sum_{j}\sum_{d}(x_{ijd} * s_{i}) \]</p>
     <p>\( s_{i} \) is the salary of employee i</p>
 
     <p>Constraints</p>
     <ol>
         <li>An employee can be assigned to at most one shift for each day
-            <p>\[ \sum_{i}\sum_{d}(x_{ijd} \leq 1) \forall(j) \]</p>
+            <p>\[ \sum_{j} x_{ijd} \leq 1 \forall{i}, \forall{d} \]</p>
         </li>
         <li>Each shifts has the required number of employees at day d
-            <p>\[ \sum_{i}(x_{ijd}) = d_{jd} \forall(j), \forall(d) \]</p>
+            <p>\[ \sum_{i}x_{ijd} = d_{jd} \forall{j}, \forall{d} \]</p>
         </li>
         <li>Ensure that only employees with the required skill level can be assigned to shifts</li>
-        
-        <li>For each shift, select the employee with the highest training level</li>
-        
-        <li>Ensure that the selected employee has the lowest salary among those with the highest training level for each shift</li> 
+            <p>\[ x_{ijd} = 0 \forall{i,j,d} \text{ s.t. } \text{ skill}_i < \text{required}_j  \]</p>
     </ol>
 
     <h3>Implementation and Result</h3>

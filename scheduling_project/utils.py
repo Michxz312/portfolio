@@ -156,7 +156,7 @@ def add_constraint3(prob, x, skill_level, e_id):
                 for d in range(5):
                     prob += x[i,j,d] == 0
             
-# constaint 4: For each shift, select the employee with the highest training level, as possible
+# constaint 4: For each shift, prioritize the employee with the highest training level
 def add_constraint4(prob, training_levels, salaries, x, e_id):
     big_value = 10000;
     prob += pulp.lpSum(
