@@ -33,7 +33,6 @@ def result_api():
     result = get_result(employees, customers)
     status = result.get("status")
     objective = result.get("objective")
-    print(result)
 
     if status != "Optimal":
         return jsonify({

@@ -3,9 +3,16 @@
 {% block content %}
     <section id="projects">
         <h2>Projects</h2>
-            <!-- TODO: project cards go here -->
-        <button class="intro-button">
-        <a href="{{ url_for('scheduling.intro_page') }}">Scheduling</a>
-        </button>
+        
+        <!--Projects-->
+        <div class="project-gallery">
+            <h3>Scheduling</h3>
+            <p>Assigning employees to shifts</p>
+            <a class="intro-button" href="{{ url_for('scheduling.intro_page') }}">
+                View Project
+            </a>
+        </div>
+
+
     </section>
 {% endblock %}
