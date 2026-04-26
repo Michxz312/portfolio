@@ -6,7 +6,6 @@ from scheduling_project.config import tasks_with_min_levels, skill_levels, salar
 
 @scheduling_bp.route('/')
 def intro_page():
-    # TODO: add explanation from jupyter notebook
     return render_template('projects/scheduling/intro.html')
 
 @scheduling_bp.route('/input', methods=["GET", "POST"])
