@@ -3,5 +3,8 @@ from flask import Blueprint
 assignment_bp = Blueprint(
     'assignment',
     __name__,
-    url_prefix="project/assignment"
+    template_folder = "../../templates",
+    url_prefix="/assignment"
 )
+
+from . import routes
