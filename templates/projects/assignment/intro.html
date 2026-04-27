@@ -21,7 +21,34 @@
     <p>\( x_{ijd} \in {0,1} \)</p>
     <p>\( x_{ijd} = 1 \) for each pair \( (S_{i},C_{j}) \) where \( j \in P_{i},S_{i} \) is assigned to \( C_{j} \), otherwise \( x_{ijd} = 0 \)</p>
 
+    <h3>Formulation</h3>
+    <p>Objective</p>
+    <p>Let \( \alpha \) be the weight of placing a student in a course that is further than the first choice.</p>
+    <p>Maximize the students' first preferences, in other words, minimize the objective function so most of the students will end up in their first-ranked choice.</p>
+    <p>\[ \text{min } \sum_{i=1}^n x_{ij_{i,1}} + \alpha x_{ij_{i,2}} + \alpha^2 x_{ij_{i,3}} + \alpha^3 x_{ij_{i,4}}\]</p>
+    <p>where \( j_{i,1}, ..., j_{i,4} \) are the student S_{i}'s four preferences and \( \alpha > 1 \) </p>
 
+    <p>Constraints</p>
+    <ul>
+        <li>All students need to be assigned to one of the courses that is in their top four choices
+            <p>\[ \sum_{j \in P_{i}} x_{i,j} = 1 \text{,  } \forall{i} \leq n \]</p>
+        </li>
+        <li>Course Size Constraint:
+            <ul>
+                <li>Let \( (L,U) \) be the minimum and maximum number of students for each course</li>
+                <p>\[ L \leq \sum_{i \in X_{j}}x_{i,j} \leq U \text{,   } \forall{j} \leq m \]</p>
+                <li>Then, we introudce \( q_{j,s} \), where s is the size of \( C_{j} \). To ensure each course only takes one capacity, we have:</li>
+                <p>\[ \sum_{s=L}^U s q_{j,s} = 1 \text{,   } \forall{j} \]</p>
+                <li>Since courses doesn't have to be perfectly full, we have:</li>
+                <p>\[ \sum_{i \in X_{j}}x_{i,j} \leq \sum_{s=L}^U s q_{j,s} \text{,   } \forall{j} \]</p>        
+            </ul>
+        </li>
+    </ul>
+
+    <h3>Implementation</h3>
+    <button class="intro-button">
+        <a href="{{ url_for('assignment.input_page') }}">Example</a>
+    </button>
     
     
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
