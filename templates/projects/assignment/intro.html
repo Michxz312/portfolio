@@ -4,4 +4,25 @@
     <section id="projects">
         <h2>Assigning students to courses</h2>
     </section>
+
+    <h3>Problem</h3>
+    <p>How can we assign first-year students to courses, given their first four preferences?</p>
+    
+    <h3>Parameters and Variables</h3>
+    <p></p>
+    <p>Parameters:</p>
+    <ul>
+        <li>Students \( S_{i} \): \( 1 \leq i \leq n \)</li>
+        <li>Courses \( C_{j} \): \( 1 \leq j \leq m \)</li>
+        <li>Preferences \( P_{i} \): The first four preferred course of each \( S_{i} \)</li>
+        <li>\( X_{j} \): set of students i having \( C_{j} \) as one of their choices where \( j \in P_{i} \)</li>
+    </ul>
+    <p>Decision variables:</p>
+    <p>\( x_{ijd} \in {0,1} \)</p>
+    <p>\( x_{ijd} = 1 \) for each pair \( (S_{i},C_{j}) \) where \( j \in P_{i},S_{i} \) is assigned to \( C_{j} \), otherwise \( x_{ijd} = 0 \)</p>
+
+
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 {% endblock %}
