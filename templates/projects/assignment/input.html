@@ -17,4 +17,10 @@
 
         <button type="submit">Update</button>
     </form>
+
+    <ol>
+        {% for s in students %}
+            <li>{{ s.id }}, {{ s.gender }}, {{ s.international }}, {{ s.preference }}</li>
+        {% endfor %}
+    </ol>
 {% endblock %}
