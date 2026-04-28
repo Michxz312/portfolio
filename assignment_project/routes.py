@@ -1,6 +1,7 @@
 from flask import render_template, request
 from . import assignment_bp
 from assignment_project.utils import create_courses, create_students
+from assignment_project.db import reset_all, get_courses, get_students, insert_courses, insert_students
 
 @assignment_bp.route('/')
 def intro_page():
@@ -17,10 +18,12 @@ def input_page():
         min = int(request.form.get("min") or 1)
         students = create_students(num_students, num_courses)
         courses = create_courses(num_courses, min, max)
-        print(num_students,num_courses,max,min)
-        print(students)
-        print(courses)
-    return render_template('projects/assignment/input.html')
+        reset_all()
+        insert_students(students)
+        insert_courses(courses)
+    students = get_students()
+    courses = get_courses()
+    return render_template('projects/assignment/input.html', students=students, courses=courses)
 
 @assignment_bp.route('/result', methods=["GET", "POST"])
 def result_page():
