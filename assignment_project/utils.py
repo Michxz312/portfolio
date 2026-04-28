@@ -31,4 +31,3 @@ def create_students(n, m):
             "preference": preference
         })
     return students
-    

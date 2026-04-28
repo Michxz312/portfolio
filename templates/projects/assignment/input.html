@@ -2,4 +2,19 @@
 
 {% block content %}
     <h2>Input</h2>
+    <form action="/assignment/input" method="post">
+        <label for="Number of Students">Number of Students</label>
+        <input type="number" name="students">
+
+        <label for="Number of courses">Number of courses</label>
+        <input type="number" name="courses">
+
+        <label for="Max students">Max #students in a course</label>
+        <input type="number" name="max">
+
+        <label for="Min students">Min #students in a course</label>
+        <input type="number" name="min">
+
+        <button type="submit">Update</button>
+    </form>
 {% endblock %}
