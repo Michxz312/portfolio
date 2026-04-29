@@ -23,4 +23,13 @@
             <li>{{ s.id }}, {{ s.gender }}, {{ s.international }}, {{ s.preference }}</li>
         {% endfor %}
     </ol>
+
+    <canvas id="international_chart"></canvas>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        const students = {{ students | tojson }};
+        const courses = {{ courses | tojson }};
+    </script>
+
+    <script src="{{ url_for('static', filename='assignment_input.js') }}"></script>
 {% endblock %}
