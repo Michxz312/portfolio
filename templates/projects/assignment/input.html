@@ -2,7 +2,7 @@
 
 {% block content %}
     <h2>Input</h2>
-    <form action="/assignment/input" method="post">
+    <form class="input_form" action="/assignment/input" method="post">
         <label for="Number of Students">Number of Students</label>
         <input type="number" name="students">
 
@@ -18,14 +18,37 @@
         <button type="submit">Update</button>
     </form>
 
-    <ol>
-        {% for s in students %}
-            <li>{{ s.id }}, {{ s.gender }}, {{ s.international }}, {{ s.preference }}</li>
-        {% endfor %}
-    </ol>
+    <div class = "table-container">
+        <table>
+            <thead>
+               <tr>
+                    <th>ID</th>
+                    <th>1st</th>
+                    <th>2nd</th>
+                    <th>3rd</th>
+                    <th>4th</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for s in students %}
+                <tr>
+                    <td>{{ s.id }}</td>
+                    {% set pref = s.preference.split(',') %}
+                    <td>{{ pref[0] }}</td>
+                    <td>{{ pref[1] }}</td>
+                    <td>{{ pref[2] }}</td>
+                    <td>{{ pref[3] }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
-    <canvas id="international_chart"></canvas>
+    <section class = "charts">
+        <canvas id="international_chart"></canvas>
     <canvas id="gender_chart"></canvas>
+    </section>
+    
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>

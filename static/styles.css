@@ -23,11 +23,17 @@ ul li a{
     font-size: medium;
 }
 
+.input_form {
+    max-width: 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
 .table-container {
-    max-height: 300px;
-    max-width: 300px;
-    overflow-y: auto;
-    overflow-x: auto;
+    max-height: 20vh;
+    max-width: 20%;
+    overflow: auto;
     border: 1px solid #000;
 }
 
@@ -64,3 +70,8 @@ thead th {
     background-color: #fff;
     color: #000
 }
+
+#international_chart, #gender_chart {
+    max-height: 300px;
+}
+
