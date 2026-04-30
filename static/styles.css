@@ -31,8 +31,10 @@ ul li a{
 }
 
 .table-container {
-    max-height: 20vh;
-    max-width: 20%;
+    max-height: 30vh;
+    display: inline-block;
+    width: fit-content;
+    max-width: 100%;
     overflow: auto;
     border: 1px solid #000;
 }

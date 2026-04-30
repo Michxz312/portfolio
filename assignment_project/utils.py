@@ -31,3 +31,7 @@ def create_students(n, m):
             "preference": preference
         })
     return students
+
+def get_results(students, courses):
+    data=[]
+    return data

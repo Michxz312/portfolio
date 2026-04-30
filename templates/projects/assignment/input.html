@@ -22,7 +22,7 @@
         <table>
             <thead>
                <tr>
-                    <th>ID</th>
+                    <th>Student ID</th>
                     <th>1st</th>
                     <th>2nd</th>
                     <th>3rd</th>
@@ -51,6 +51,9 @@
     
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <button id="result" type="submit">Result</button>
+    
     <script>
         const students = {{ students | tojson }};
         const courses = {{ courses | tojson }};

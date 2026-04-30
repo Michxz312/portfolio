@@ -1,6 +1,6 @@
-from flask import render_template, request
+from flask import render_template, request, jsonify
 from . import assignment_bp
-from assignment_project.utils import create_courses, create_students
+from assignment_project.utils import create_courses, create_students, get_results
 from assignment_project.db import init, reset_all, get_courses, get_students, insert_courses, insert_students
 
 @assignment_bp.route('/')
@@ -26,6 +26,14 @@ def input_page():
     courses = get_courses()
     return render_template('projects/assignment/input.html', students=students, courses=courses)
 
-@assignment_bp.route('/result', methods=["GET", "POST"])
+@assignment_bp.route('/result', methods=["POST"])
+def result_api():
+    data = request.get_json()
+    students = data.get("student_data")
+    courses = data.get("course_data")
+    result = get_results(students, courses)
+    return jsonify(result)
+
+@assignment_bp.route('/result_page')
 def result_page():
     return render_template('projects/assignment/result.html')
