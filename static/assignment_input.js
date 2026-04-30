@@ -57,6 +57,19 @@ new Chart(document.getElementById('preference_chart'), {
         scales: {
             x: { stacked: true },
             y: { stacked: true }
+        },
+        plugins: {
+            tooltip: {
+                callbacks: {
+                    label: function(tooltipItem) {
+                        const dataset = tooltipItem.dataset;
+                        const courseId = dataset.label;
+                        const count = tooltipItem.raw;
+
+                        return 'Course ID: '+ courseId + ', Count: ' + count;
+                    }
+                }
+            }
         }
     },
 })
