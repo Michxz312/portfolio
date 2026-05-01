@@ -23,7 +23,14 @@ ul li a{
     font-size: medium;
 }
 
+.form-table-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
 .input_form {
+    flex: 1;
     max-width: 100px;
     display: flex;
     flex-direction: column;
@@ -31,7 +38,8 @@ ul li a{
 }
 
 .table-container {
-    max-height: 30vh;
+    flex: 2;
+    max-height: 35vh;
     display: inline-block;
     width: fit-content;
     max-width: 100%;
@@ -73,7 +81,15 @@ thead th {
     color: #000
 }
 
-#international_chart, #gender_chart {
-    max-height: 300px;
+.charts {
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr;
+    gap: 10px;
+    width: 100%;
 }
 
+canvas {
+  width: 100%;
+  height: 50px;
+  object-fit: contain;
+}
