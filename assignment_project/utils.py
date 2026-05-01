@@ -44,7 +44,7 @@ def get_results(students, courses):
     constraints += [x >= 0, x <= 1]
     
     a = 2
-    objective = cp.Minimize(cp.sum([cp.sum([x[i, pref[i,0]]  + a*x[i, pref[i,1]] + a**2*x[i,pref[i,2]] + a**3*x[i,pref[i,3]]for i in range(n)])]))
+    objective = cp.Minimize(cp.sum([cp.sum([x[i, pref[i][0]]  + a*x[i, pref[i][1]] + a**2*x[i,pref[i][2]] + a**3*x[i,pref[i][3]]for i in range(n)])]))
 
     prob = cp.Problem(objective, constraints)
     prob.solve()

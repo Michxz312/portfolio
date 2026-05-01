@@ -76,13 +76,12 @@ new Chart(document.getElementById('preference_chart'), {
 
 
 document.getElementById("result").addEventListener("click", async() => {
-    console.log("clicked")
 
     const data = {
         student_data: students,
         course_data: courses,
     }
-    console.log(data)
+
     const res = await fetch("/assignment/result", {
         method: "POST",
         headers: {
@@ -92,8 +91,6 @@ document.getElementById("result").addEventListener("click", async() => {
     })
 
     const result = await res.json()
-
-    console.log("result", result)
 
     localStorage.setItem("result", JSON.stringify(result));
     window.location.href = "/assignment/result_page"

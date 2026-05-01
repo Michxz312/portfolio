@@ -1,5 +1,4 @@
 document.getElementById("result").addEventListener("click", async() => {
-    console.log("clicked")
 
     const data = {
         employees_data: window.APP_DATA.employees,
@@ -15,8 +14,6 @@ document.getElementById("result").addEventListener("click", async() => {
     });
 
     const result = await res.json();
-
-    console.log("result from Flask:", result);
 
     localStorage.setItem("result", JSON.stringify(result));
     window.location.href = "/scheduling/result_page"

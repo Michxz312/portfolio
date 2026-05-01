@@ -1,8 +1,10 @@
 {% extends "index.html" %}
 
 {% block content %}
+    <h2>Result</h2>
     <section id="projects">
-        <h2>Result</h2>
+        <canvas id="studentPref"></canvas>
     </section>
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='assignment_result.js') }}"></script>
 {% endblock %}

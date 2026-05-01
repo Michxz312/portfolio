@@ -1,13 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
     const result = JSON.parse(localStorage.getItem("result"));
-    console.log(result.data);
 
     if (result.status !== "Optimal") {
         alert(result.status);
         window.location.href = "/scheduling/input"
         return;
     }
-    console.log(result.objective)
+    
     const p = document.getElementById("salary")
     const salary = document.createElement("p");
     salary.textContent = result.objective;
