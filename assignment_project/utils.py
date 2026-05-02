@@ -55,3 +55,4 @@ def constraint1(x, constraints, n, pref):
     for i in range(n):
         constraints += [cp.sum([x[i,j] for j in pref[i]]) == 1]
     return constraints
+
