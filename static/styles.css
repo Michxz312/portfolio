@@ -40,11 +40,17 @@ ul li a{
 .table-container {
     flex: 2;
     max-height: 35vh;
-    display: inline-block;
-    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
     max-width: 100%;
     overflow: auto;
     border: 1px solid #000;
+}
+
+.table-container > * {
+    text-align: center;
 }
 
 thead th {
@@ -89,7 +95,6 @@ thead th {
 }
 
 canvas {
-  width: 100%;
+  width: 80%;
   height: 50px;
-  object-fit: contain;
 }

@@ -90,11 +90,11 @@ document.addEventListener("DOMContentLoaded", function() {
     })
 
     window.addEventListener('resize', function() {
-        
-    })
+        const canvas = document.getElementById('myChart');
+        canvas.width = canvas.parentElement.offsetWidth;
+        canvas.height = 50;
+    });
 })
-
-
 
 
 document.getElementById("result").addEventListener("click", async() => {
