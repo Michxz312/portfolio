@@ -34,14 +34,7 @@
             <p>\[ \sum_{j \in P_{i}} x_{i,j} = 1 \text{,  } \forall{i} \leq n \]</p>
         </li>
         <li>Course Size Constraint:
-            <ul>
-                <li>Let \( (L,U) \) be the minimum and maximum number of students for each course</li>
-                <p>\[ L \leq \sum_{i \in X_{j}}x_{i,j} \leq U \text{,   } \forall{j} \leq m \]</p>
-                <li>Then, we introudce \( q_{j,s} \), where s is the size of \( C_{j} \). To ensure each course only takes one capacity, we have:</li>
-                <p>\[ \sum_{s=L}^U s q_{j,s} = 1 \text{,   } \forall{j} \]</p>
-                <li>Since courses doesn't have to be perfectly full, we have:</li>
-                <p>\[ \sum_{i \in X_{j}}x_{i,j} \leq \sum_{s=L}^U s q_{j,s} \text{,   } \forall{j} \]</p>        
-            </ul>
+            <p>\[ \sum_{i} x_{i,j} \leq C_{j} \text{,  } \forall{j} \]</p>
         </li>
     </ul>
 
