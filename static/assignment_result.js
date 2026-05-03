@@ -1,23 +1,17 @@
 document.addEventListener("DOMContentLoaded", () => {
     const result = JSON.parse(localStorage.getItem("result"));
+    const preferences_count = result.preferences_count
+    const students_in_course = result.students_in_course
+    const preference_assignment_count = result.preference_assignment_count
 
-    preferences_count = [0,0,0,0]
-    for (let i = 0; i < result.length; i++) {
-        for (let j = 0; j < 4; j++) {
-            if (result[i][j] > 0) {
-                preferences_count[j] += 1
-            }
-        }
-    }
-    console.log(preferences_count)
-    createStudentsPreference(preferences_count)
+    createStudentsPreference(preference_assignment_count)
 })
 
-function createStudentsPreference(preferences_count) {
+function createStudentsPreference(preference_assignment_count) {
     const canvas = document.getElementById("studentPref").getContext("2d")
     const data = [{
         label: 'Student Preferences',
-        data: preferences_count
+        data: preference_assignment_count
     }]
     const chart = new Chart(canvas, {
         type: 'bar',

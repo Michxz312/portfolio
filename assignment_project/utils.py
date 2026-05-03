@@ -47,8 +47,24 @@ def get_results(students, courses):
     objective = cp.Minimize(cp.sum([cp.sum([x[i, pref[i][0]]  + a*x[i, pref[i][1]] + a**2*x[i,pref[i][2]] + a**3*x[i,pref[i][3]]for i in range(n)])]))
 
     prob = cp.Problem(objective, constraints)
-    prob.solve()
-    return x.value.tolist()
+    status = prob.solve()
+
+    # results
+    students_in_course = [sum(x.value[:,i]) for i in range(m)]
+    preferences_count = [[0]*4 for _ in range(n)]
+    for i in range(n):
+        for j in range(4):
+            if x.value[i,pref[i][j]] > 0.5 :
+                preferences_count[i][j] = 1
+                break
+    preference_assignment_count = [sum([preferences_count[i][j] for i in range(n)]) for j in range(4)]
+    print(preference_assignment_count)
+    return {
+        "status": status,
+        "students_in_course": students_in_course,
+        "preferences_count": preferences_count,
+        "preference_assignment_count": preference_assignment_count
+    }
 
 # Each student gets exactly one course j in preference of student i
 def constraint1(x, constraints, n, pref): 
@@ -56,8 +72,9 @@ def constraint1(x, constraints, n, pref):
         constraints += [cp.sum([x[i,j] for j in pref[i]]) == 1]
     return constraints
 
-def constraint2(x, constraints, students, courses):
+def constraint2(x, constraints, n, courses):
     for course in courses:
         id = course['id']
         max = course['max']
-        constraints += [cp.sum([x[i,id] for i in students]) <= max]
+        constraints += [cp.sum([x[i,id] for i in range(n)]) <= max]
+    return constraints
