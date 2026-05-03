@@ -56,3 +56,8 @@ def constraint1(x, constraints, n, pref):
         constraints += [cp.sum([x[i,j] for j in pref[i]]) == 1]
     return constraints
 
+def constraint2(x, constraints, students, courses):
+    for course in courses:
+        id = course['id']
+        max = course['max']
+        constraints += [cp.sum([x[i,id] for i in students]) <= max]
