@@ -16,7 +16,6 @@ def insert_students(students):
     cursor = con.cursor()
     sql = "INSERT INTO students (id, gender, international, preference) VALUES(%s,%s,%s,%s)"
     data = []
-    print(students)
     for s in students:
         data.append((s['student_id'], s['gender'], s['international'], ','.join(map(str, s['preference']))))
     cursor.executemany(sql, data)

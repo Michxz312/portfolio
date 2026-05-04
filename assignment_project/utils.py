@@ -50,7 +50,7 @@ def get_results(students, courses):
     status = prob.solve()
 
     # results
-    students_in_course = [sum(x.value[:,i]) for i in range(m)]
+    students_in_course = {course['id']: sum(x.value[:,i]) for i,course in enumerate(courses)}
     preferences_count = [[0]*4 for _ in range(n)]
     for i in range(n):
         for j in range(4):

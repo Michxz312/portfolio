@@ -1,10 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
     const result = JSON.parse(localStorage.getItem("result"));
-    const preferences_count = result.preferences_count
-    const students_in_course = result.students_in_course
-    const preference_assignment_count = result.preference_assignment_count
-
-    createStudentsPreference(preference_assignment_count)
+    const preferences_count = result.preferences_count;
+    const students_in_course = result.students_in_course;
+    const preference_assignment_count = result.preference_assignment_count;
+    
+    createStudentsPreference(preference_assignment_count);
+    createAssignedStudents(students_in_course)
 })
 
 function createStudentsPreference(preference_assignment_count) {
@@ -29,4 +30,33 @@ function createStudentsPreference(preference_assignment_count) {
         }
     })
 
+}
+
+function createAssignedStudents(students_in_course) {
+    const canvas = document.getElementById("assignedStudents").getContext("2d")
+    const data = {
+        labels: Object.keys(students_in_course),
+        datasets: [{
+            label: 'Number of Students Assigned to Course',
+            data: Object.values(students_in_course)
+        }]
+    }
+    const chart = new Chart(canvas, {
+        type: 'bar',
+        data: data,
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    ticks: {
+                        autoskip: false,
+                        maxRotation: 45
+                    }
+                },
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    })
 }
