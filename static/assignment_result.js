@@ -34,11 +34,15 @@ function createStudentsPreference(preference_assignment_count) {
 
 function createAssignedStudents(students_in_course) {
     const canvas = document.getElementById("assignedStudents").getContext("2d")
+    const values = Object.values(students_in_course)
+    const min = Math.min(...values)
+    const max = Math.max(...values)
     const data = {
         labels: Object.keys(students_in_course),
         datasets: [{
             label: 'Number of Students Assigned to Course',
-            data: Object.values(students_in_course)
+            data: Object.values(students_in_course),
+            backgroundColor: Object.values(students_in_course).map(value => getColor(value, min, max))
         }]
     }
     const chart = new Chart(canvas, {
@@ -59,4 +63,11 @@ function createAssignedStudents(students_in_course) {
             }
         }
     })
+}
+
+function getColor(value, min, max) {
+    const ratio = (value-min)/(max-min);
+    const red = Math.floor(175*ratio);
+    const blue = Math.floor(255*(1-ratio));
+    return `rgba(${red},150,${blue},0.4)`
 }
