@@ -2,19 +2,19 @@
 
 {% block content %}
     <h2>Input</h2>
-    <div class="form-table-container">
+    <div class="form-table-form-container">
         <form class="input_form" action="/assignment/input" method="post">
             <label for="Number of Students">Number of Students</label>
-            <input type="number" name="students">
+            <input type="number" name="students" min="0">
 
             <label for="Number of courses">Number of courses</label>
-            <input type="number" name="courses">
+            <input type="number" name="courses" min="0">
 
             <label for="Max students">Max #students in a course</label>
-            <input type="number" name="max">
+            <input type="number" name="max" min="0">
 
             <label for="Min students">Min #students in a course</label>
-            <input type="number" name="min">
+            <input type="number" name="min" min="0">
 
             <button type="submit">Update</button>
         </form>
@@ -44,6 +44,41 @@
                 </tbody>
             </table>
         </div>
+
+        <form class="input_form2" action="/assignment/input" method="post">
+            <label for="Name">Student ID:</label>
+            <input type="number" name="students" min="0" required>
+            <label for="Gender">Gender:</label>
+            <input type="number" name="gender" min="0" max="1" step="1" required>
+            <label for="Name">International:</label>
+            <input type="number" name="international" min="0" max="1" step="1" required>
+            <label for="preference1">1st Preference:</label>
+            <select name="preference1" required>
+                {% for course in courses %}
+                    <option value="{{ course.id }}">{{ course.id }}</option>
+                {% endfor %}
+            </select> 
+            <label for="preference2">2nd Preference:</label>
+            <select name="preference2" required>
+                {% for course in courses %}
+                    <option value="{{ course.id }}">{{ course.id }}</option>
+                {% endfor %}
+            </select>
+            <label for="preference3">3rd Preference:</label>
+            <select name="preference3" required>
+                {% for course in courses %}
+                    <option value="{{ course.id }}">{{ course.id }}</option>
+                {% endfor %}
+            </select>
+            <label for="preference4">4th Preference:</label>
+            <select name="preference4" required>
+                {% for course in courses %}
+                    <option value="{{ course.id }}">{{ course.id }}</option>
+                {% endfor %}
+            </select>
+            <br>
+            <button type="submit">Insert</button>
+        </form>
     </div>
 
     <section class = "charts">

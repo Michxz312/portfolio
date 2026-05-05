@@ -29,6 +29,12 @@ ul li a{
     gap: 20px;
 }
 
+.form-table-form-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
 .input_form {
     flex: 1;
     max-width: 100px;
@@ -51,6 +57,14 @@ ul li a{
 
 .table-container > * {
     text-align: center;
+}
+
+.input_form2 {
+    flex: 3;
+    max-width: 100px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
 thead th {
