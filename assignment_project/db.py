@@ -11,6 +11,17 @@ def create_connection():
         cursorclass = pymysql.cursors.DictCursor
     )
 
+def insert_one_student(student):
+    con = create_connection()
+    cursor = con.cursor()
+    student_id, gender, international, preference_list = student
+    preference_str = ','.join(map(str, preference_list))
+    sql = "INSERT INTO students (id, gender, international, preference) VALUES(%s,%s,%s,%s)"
+    cursor.execute(sql, (student_id, gender, international, preference_str))
+    con.commit()
+    cursor.close()
+    con.close()
+
 def insert_students(students):
     con = create_connection()
     cursor = con.cursor()
