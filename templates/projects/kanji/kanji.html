@@ -1,9 +1,12 @@
 {% extends "index.html" %}
 
-{% block content %}    
-    <section id="about">
-        <h2>About</h2>
-        <p>Short bio or summary.</p>
+{% block content %}
+    <section id="game-container">
+        <h2>Kanji Game</h2>
+        <div id="display"></div>
+        <input type="text" id="romaji-input"/>
+        <button id="submit">Submit</button>
+        <div id="summary"></div>
     </section>
-
+    <script src="{{ url_for('static', filename='kanji_app.js') }}"></script>
 {% endblock %}
