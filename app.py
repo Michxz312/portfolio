@@ -1,11 +1,13 @@
 from flask import Flask, render_template, request
 from scheduling_project import scheduling_bp
 from assignment_project import assignment_bp
+from kanji_game import kanji_game_bp
 from scheduling_project.seed import seed
 
 app = Flask(__name__)
 app.register_blueprint(scheduling_bp)
 app.register_blueprint(assignment_bp)
+app.register_blueprint(kanji_game_bp)
 
 @app.route('/')
 def home():
