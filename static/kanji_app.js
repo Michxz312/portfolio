@@ -1,3 +1,7 @@
+let currentReading = "";
+let wordList = [];
+let score = 0;
+
 async function getRandomKanjiWords() {
     const res = await fetch('https://kanjiapi.dev/v1/kanji/jlpt-2')
     const vocab = await res.json();
@@ -39,9 +43,20 @@ async function main() {
     const index = Math.floor(Math.random() * n2Words.length);
     const kanjiInfo = n2Words[index];
 
-    localStorage.setItem("reading", JSON.stringify(kanjiInfo.japanese[0].reading))
-    localStorage.setItem("word", JSON.stringify(kanjiInfo.japanese[0].word))
-    localStorage.setItem("definition", JSON.stringify(kanjiInfo.senses[0].english_definitions))
+    const word = kanjiInfo.japanese?.[0]?.word;
+    console.log(word)
+    currentReading = kanjiInfo.japanese?.[0]?.reading;
+    wordList.push({"kanji": word, "hiragana": currentReading, "definition":kanjiInfo.senses?.[0]?.english_definitions || []})
+    document.getElementById("display").textContent = word;
 }
 
-main();
+document.getElementById("submit").addEventListener("click", () => {
+    const guess = document.getElementById("romaji-input").value.trim();
+    if (guess == currentReading) {
+        document.getElementById("summary").textContent = "correct!"
+    }
+})
+
+document.addEventListener("DOMContentLoaded", () => {
+    main();
+})
