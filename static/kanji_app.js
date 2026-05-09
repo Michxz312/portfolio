@@ -3,19 +3,23 @@ async function getRandomKanjiWords() {
     const vocab = await res.json();
     const kanjiList = await sendKanji(vocab);
 
-    let n2; 
     while (true) {
         const randomKanji = kanjiList[Math.floor(Math.random() * kanjiList.length)];
         
         const wordRes = await fetch(`/kanji/jisho/${randomKanji}`);
         const wordData = await wordRes.json();
-        n2 = wordData.data.filter(kanji => kanji.jlpt && kanji.jlpt[0] === "jlpt-n2")
+        const validWords = wordData.data.filter(word => {
+            const containsKanji = word.japanese?.some(j => j.word?.includes(randomKanji));
+            const isN2 = word.jlpt?.includes("jlpt-n2");
+            const noJlpt = !word.jlpt || word.jlpt.length == 0;
 
-        if (n2.length > 1) {
-            break;
+            return containsKanji && (isN2 || noJlpt);
+        });
+
+        if (validWords.length > 0) {
+            return validWords;
         }
     }
-    return n2;
 }
 
 async function sendKanji(data) {
@@ -30,5 +34,14 @@ async function sendKanji(data) {
     return result;
 }
 
-const n2Words = getRandomKanjiWords();
-console.log(n2Words)
+async function main() {
+    const n2Words = await getRandomKanjiWords();
+    const index = Math.floor(Math.random() * n2Words.length);
+    const kanjiInfo = n2Words[index];
+
+    localStorage.setItem("reading", JSON.stringify(kanjiInfo.japanese[0].reading))
+    localStorage.setItem("word", JSON.stringify(kanjiInfo.japanese[0].word))
+    localStorage.setItem("definition", JSON.stringify(kanjiInfo.senses[0].english_definitions))
+}
+
+main();
