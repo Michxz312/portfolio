@@ -6,7 +6,18 @@
         <div id="display"></div>
         <input type="text" id="romaji-input"/>
         <button id="submit">Submit</button>
-        <div id="summary"></div>
+        <div id="summary">
+            <table id = "word-table">
+                <thead>
+                    <tr>
+                        <th>Kanji</th>
+                        <th>Reading</th>
+                        <th>Meaning</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
     </section>
     <script src="{{ url_for('static', filename='kanji_app.js') }}"></script>
 {% endblock %}

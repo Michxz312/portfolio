@@ -48,6 +48,21 @@ async function main() {
     currentReading = kanjiInfo.japanese?.[0]?.reading;
     wordList.push({"kanji": word, "hiragana": currentReading, "definition":kanjiInfo.senses?.[0]?.english_definitions || []})
     document.getElementById("display").textContent = word;
+    summary()
+}
+
+function summary() {
+    console.log("table:", document.getElementById("word-table"));
+
+    const tbody = document.querySelector("#word-table tbody");
+
+    tbody.innerHTML = wordList.map(item => `
+        <tr>
+            <td>${item.kanji}</td>
+            <td>${item.hiragana}</td>
+            <td>${item.definition}</td>
+        </tr>
+    `).join("");
 }
 
 document.getElementById("submit").addEventListener("click", () => {
@@ -55,8 +70,10 @@ document.getElementById("submit").addEventListener("click", () => {
     if (guess == currentReading) {
         document.getElementById("summary").textContent = "correct!"
     }
+    console.log(wordList)
 })
 
 document.addEventListener("DOMContentLoaded", () => {
     main();
 })
+
