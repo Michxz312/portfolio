@@ -2,6 +2,7 @@ let currentReading = "";
 let wordList = [];
 let words = []
 let index = 0;
+let score = 0;
 
 async function getRandomKanjiWords() {
     const res = await fetch('https://kanjiapi.dev/v1/kanji/jlpt-2')
@@ -69,6 +70,7 @@ function clear() {
     document.getElementById("summary").textContent = "";
     document.getElementById("correct-answer").textContent = "";
     document.getElementById("display").textContent = "";
+    document.getElementById("score").textContent = "";
 
     document.getElementById("romaji-input").value = "";
 }
@@ -77,6 +79,7 @@ document.getElementById("submit").addEventListener("click", () => {
     const guess = document.getElementById("romaji-input").value.trim();
     if (guess == currentReading) {
         document.getElementById("summary").textContent = "correct!";
+        score++;
     }
     else if (guess != currentReading) {
          document.getElementById("summary").textContent = "false!";
@@ -84,6 +87,7 @@ document.getElementById("submit").addEventListener("click", () => {
          document.getElementById("correct-answer").textContent = wordList[index].hiragana;
     }
     index += 1;
+    document.getElementById("score").textContent = score;
 
     if (index >= 16) {
         summary()
