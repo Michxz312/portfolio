@@ -1,6 +1,7 @@
 let currentReading = "";
 let wordList = [];
-let score = 0;
+let words = []
+let index = 0;
 
 async function getRandomKanjiWords() {
     const res = await fetch('https://kanjiapi.dev/v1/kanji/jlpt-2')
@@ -43,17 +44,15 @@ async function main() {
     const index = Math.floor(Math.random() * n2Words.length);
     const kanjiInfo = n2Words[index];
 
-    const word = kanjiInfo.japanese?.[0]?.word;
-    console.log(word)
+    const currentWord = kanjiInfo.japanese?.[0]?.word;
+    words.push(currentWord)
+    console.log(currentWord)
     currentReading = kanjiInfo.japanese?.[0]?.reading;
-    wordList.push({"kanji": word, "hiragana": currentReading, "definition":kanjiInfo.senses?.[0]?.english_definitions || []})
-    document.getElementById("display").textContent = word;
-    summary()
+    wordList.push({"kanji": currentWord, "hiragana": currentReading, "definition":kanjiInfo.senses?.[0]?.english_definitions || []})
+    document.getElementById("display").textContent = currentWord;
 }
 
 function summary() {
-    console.log("table:", document.getElementById("word-table"));
-
     const tbody = document.querySelector("#word-table tbody");
 
     tbody.innerHTML = wordList.map(item => `
@@ -68,9 +67,20 @@ function summary() {
 document.getElementById("submit").addEventListener("click", () => {
     const guess = document.getElementById("romaji-input").value.trim();
     if (guess == currentReading) {
-        document.getElementById("summary").textContent = "correct!"
+        document.getElementById("summary").textContent = "correct!";
     }
-    console.log(wordList)
+    else if (guess != currentReading) {
+         document.getElementById("summary").textContent = "false!";
+         console.log(wordList[index])
+         document.getElementById("correct-answer").textContent = wordList[index];
+    }
+    index += 1;
+
+    if (index >= 16) {
+        summary()
+    } else {
+        main()
+    }
 })
 
 document.addEventListener("DOMContentLoaded", () => {
