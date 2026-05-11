@@ -41,6 +41,7 @@ async function sendKanji(data) {
 
 async function main() {
     const n2Words = await getRandomKanjiWords();
+    clear()
     const index = Math.floor(Math.random() * n2Words.length);
     const kanjiInfo = n2Words[index];
 
@@ -62,6 +63,14 @@ function summary() {
             <td>${item.definition}</td>
         </tr>
     `).join("");
+}
+
+function clear() {
+    document.getElementById("summary").textContent = "";
+    document.getElementById("correct-answer").textContent = "";
+    document.getElementById("display").textContent = "";
+
+    document.getElementById("romaji-input").value = "";
 }
 
 document.getElementById("submit").addEventListener("click", () => {
