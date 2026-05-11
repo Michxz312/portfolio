@@ -72,7 +72,7 @@ document.getElementById("submit").addEventListener("click", () => {
     else if (guess != currentReading) {
          document.getElementById("summary").textContent = "false!";
          console.log(wordList[index])
-         document.getElementById("correct-answer").textContent = wordList[index];
+         document.getElementById("correct-answer").textContent = wordList[index].hiragana;
     }
     index += 1;
 
