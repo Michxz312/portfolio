@@ -1,7 +1,7 @@
 let currentReading = "";
 let wordList = [];
 let words = []
-let index = 0;
+let currIndex = 0;
 let score = 0;
 
 async function getRandomKanjiWords() {
@@ -55,19 +55,23 @@ async function main() {
 }
 
 function summary() {
-    const tbody = document.querySelector("#word-table tbody");
-
+    console.log(document.querySelector("#word-table").innerHTML);
+    const tbody = document.querySelector("#word-table");
+    console.log(tbody)
+    if (!tbody) {
+        console.log("meow")
+    };
+    console.log(wordList)
     tbody.innerHTML = wordList.map(item => `
         <tr>
             <td>${item.kanji}</td>
             <td>${item.hiragana}</td>
-            <td>${item.definition}</td>
+            <td>${item.definition.join(", ")}</td>
         </tr>
     `).join("");
 }
 
 function clear() {
-    document.getElementById("summary").textContent = "";
     document.getElementById("correct-answer").textContent = "";
     document.getElementById("display").textContent = "";
     document.getElementById("score").textContent = "";
@@ -75,28 +79,27 @@ function clear() {
     document.getElementById("romaji-input").value = "";
 }
 
-document.getElementById("submit").addEventListener("click", () => {
-    const guess = document.getElementById("romaji-input").value.trim();
-    if (guess == currentReading) {
-        document.getElementById("summary").textContent = "correct!";
-        score++;
-    }
-    else if (guess != currentReading) {
-         document.getElementById("summary").textContent = "false!";
-         console.log(wordList[index])
-         document.getElementById("correct-answer").textContent = wordList[index].hiragana;
-    }
-    index += 1;
-    document.getElementById("score").textContent = score;
-
-    if (index >= 16) {
-        summary()
-    } else {
-        main()
-    }
-})
-
 document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("submit").addEventListener("click", () => {
+        const guess = document.getElementById("romaji-input").value.trim();
+        if (guess == currentReading) {
+            document.getElementById("true-false").textContent = "correct!";
+            score++;
+        }
+        else if (guess != currentReading) {
+            document.getElementById("true-false").textContent = "false!";
+            document.getElementById("correct-answer").textContent = wordList[currIndex].hiragana;
+        }
+        currIndex += 1;
+        document.getElementById("score").textContent = score;
+
+        if (currIndex >= 2) {
+            summary()
+        } else {
+            main()
+        }
+    });
+
     main();
 })
 
