@@ -55,13 +55,7 @@ async function main() {
 }
 
 function summary() {
-    console.log(document.querySelector("#word-table").innerHTML);
     const tbody = document.querySelector("#word-table");
-    console.log(tbody)
-    if (!tbody) {
-        console.log("meow")
-    };
-    console.log(wordList)
     tbody.innerHTML = wordList.map(item => `
         <tr>
             <td>${item.kanji}</td>
@@ -69,6 +63,9 @@ function summary() {
             <td>${item.definition.join(", ")}</td>
         </tr>
     `).join("");
+
+    document.getElementById("summary").style.display = "block";
+    document.getElementById("submit").style.display = "none"
 }
 
 function clear() {
