@@ -1,0 +1,23 @@
+#game-container {
+    max-width: 300px;
+    margin: 50px auto;
+    padding: 50px;
+    text-align: center;
+}
+
+#game-container h2 {
+    font-size: 22px;
+    margin-bottom: 30px;
+    color: #000000;
+    letter-spacing: 1px;
+}
+
+#submit {
+    display: block;
+    margin: 10px auto;
+    visibility: hidden;
+}
+
+#submit.show {
+    visibility: visible;
+}

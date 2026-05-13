@@ -52,7 +52,7 @@ async function main() {
     currentReading = kanjiInfo.japanese?.[0]?.reading;
     wordList.push({"kanji": currentWord, "hiragana": currentReading, "definition":kanjiInfo.senses?.[0]?.english_definitions || []})
     document.getElementById("display").textContent = currentWord;
-    document.getElementById("submit").style.display = "block";
+    document.getElementById("submit").classList.add("show");
 }
 
 function summary() {
@@ -66,7 +66,7 @@ function summary() {
     `).join("");
 
     document.getElementById("summary").style.display = "block";
-    document.getElementById("submit").style.display = "none";
+    document.getElementById("submit").classList.remove("hidden")
 }
 
 function clear() {
@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
         currIndex += 1;
         document.getElementById("score").textContent = score;
 
-        if (currIndex >= 1) {
+        if (currIndex >= 8) {
             summary()
         } else {
             main()
