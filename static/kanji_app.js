@@ -48,7 +48,6 @@ async function main() {
 
     const currentWord = kanjiInfo.japanese?.[0]?.word;
     words.push(currentWord)
-    console.log(currentWord)
     currentReading = kanjiInfo.japanese?.[0]?.reading;
     wordList.push({"kanji": currentWord, "hiragana": currentReading, "definition":kanjiInfo.senses?.[0]?.english_definitions || []})
     document.getElementById("display").textContent = currentWord;
@@ -104,7 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("correct-answer").textContent = wordList[currIndex].hiragana;
         }
         currIndex += 1;
-        document.getElementById("score").textContent = score;
+        document.getElementById("score").textContent = "score: " + score;
 
         if (currIndex >= 8) {
             summary()

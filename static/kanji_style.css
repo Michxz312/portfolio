@@ -12,12 +12,28 @@
     letter-spacing: 1px;
 }
 
+#score {
+    margin-bottom: 10px;
+}
+
+#display {
+    font-size: 20px;
+    margin-bottom: 30px;
+}
+
 #submit {
     display: block;
     margin: 10px auto;
     visibility: hidden;
+    cursor: pointer;
+    background-color: #000000;
+    color: #fff;
 }
 
 #submit.show {
     visibility: visible;
+}
+
+#submit:hover {
+    transform: translateY(-2px);
 }
