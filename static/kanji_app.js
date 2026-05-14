@@ -3,6 +3,7 @@ let wordList = [];
 let words = []
 let currIndex = 0;
 let score = 0;
+let isLoading = false;
 
 async function getRandomKanjiWords() {
     const res = await fetch('https://kanjiapi.dev/v1/kanji/jlpt-2')
@@ -11,18 +12,25 @@ async function getRandomKanjiWords() {
 
     while (true) {
         const randomKanji = kanjiList[Math.floor(Math.random() * kanjiList.length)];
-        
         const wordRes = await fetch(`/kanji/jisho/${randomKanji}`);
         const wordData = await wordRes.json();
+        
         const validWords = wordData.data.filter(word => {
             const containsKanji = word.japanese?.some(j => j.word?.includes(randomKanji));
             const isN2 = word.jlpt?.includes("jlpt-n2");
-            const noJlpt = !word.jlpt || word.jlpt.length == 0;
+            
+            const wanikaniTag = word.tags?.find(tag =>
+                tag.startsWith("wanikani")
+            );
 
-            return containsKanji && (isN2 || noJlpt);
+            const wanikaniLevel = wanikaniTag?parseInt(wanikaniTag.replace("wanikani", "")) : 0;
+            const isAbove24 = wanikaniLevel >= 24;
+
+            return containsKanji && (isAbove24 || isN2)
         });
 
-        if (validWords.length > 0) {
+        if (validWords.length > 0 && validWords.length < 5) {
+            console.log(validWords)
             return validWords;
         }
     }
@@ -38,6 +46,19 @@ async function sendKanji(data) {
     const result = await res.json();
     localStorage.setItem("result", JSON.stringify(result));
     return result;
+}
+
+function setLoading(load) {
+    isLoading = load;
+    const btn = document.getElementById("submit");
+    const input = document.getElementById("romaji-input");
+    if (load) {
+        btn.disabled = true;
+        btn.textContent = "Loading...";
+    } else {
+        btn.disabled = false;
+        btn.textContent = "Submit";
+    }
 }
 
 async function main() {
@@ -65,7 +86,6 @@ function summary() {
     `).join("");
 
     document.getElementById("summary").style.display = "block";
-    document.getElementById("submit").classList.add("hidden");
     document.getElementById("true-false").textContent = "";
     document.getElementById("romaji-input").value = "";
 }
