@@ -50,29 +50,33 @@ async function sendKanji(data) {
 
 function setLoading(load) {
     isLoading = load;
+
     const btn = document.getElementById("submit");
-    const input = document.getElementById("romaji-input");
-    if (load) {
-        btn.disabled = true;
-        btn.textContent = "Loading...";
-    } else {
-        btn.disabled = false;
-        btn.textContent = "Submit";
-    }
+
+    btn.disabled = load;
+    btn.textContent = load ? "Loading..." : "Submit";
 }
 
 async function main() {
-    const n2Words = await getRandomKanjiWords();
-    clear()
-    const index = Math.floor(Math.random() * n2Words.length);
-    const kanjiInfo = n2Words[index];
+    try {
+        setLoading(true);
 
-    const currentWord = kanjiInfo.japanese?.[0]?.word;
-    words.push(currentWord)
-    currentReading = kanjiInfo.japanese?.[0]?.reading;
-    wordList.push({"kanji": currentWord, "hiragana": currentReading, "definition":kanjiInfo.senses?.[0]?.english_definitions || []})
-    document.getElementById("display").textContent = currentWord;
-    document.getElementById("submit").classList.add("show");
+        const n2Words = await getRandomKanjiWords();
+        clear()
+        const index = Math.floor(Math.random() * n2Words.length);
+        const kanjiInfo = n2Words[index];
+
+        const currentWord = kanjiInfo.japanese?.[0]?.word;
+        words.push(currentWord)
+        currentReading = kanjiInfo.japanese?.[0]?.reading;
+        wordList.push({"kanji": currentWord, "hiragana": currentReading, "definition":kanjiInfo.senses?.[0]?.english_definitions || []})
+        document.getElementById("display").textContent = currentWord;
+        document.getElementById("submit").classList.add("show");
+    } catch (err) {
+
+    } finally {
+        setLoading(false);
+    }
 }
 
 function summary() {
