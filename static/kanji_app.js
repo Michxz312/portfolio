@@ -65,12 +65,15 @@ function summary() {
     `).join("");
 
     document.getElementById("summary").style.display = "block";
-    document.getElementById("submit").classList.remove("hidden")
+    document.getElementById("submit").classList.add("hidden");
+    document.getElementById("true-false").textContent = "";
+    document.getElementById("romaji-input").value = "";
 }
 
 function clear() {
     document.getElementById("correct-answer").textContent = "";
     document.getElementById("display").textContent = "";
+    document.getElementById("true-false").textContent = "";
     document.getElementById("score").textContent = "";
 
     document.getElementById("romaji-input").value = "";
@@ -83,6 +86,7 @@ function resetGame() {
     currIndex = 0;
     score = 0;
     document.getElementById("summary").style.display = "none";
+    document.getElementById("true-false").textContent = "";
     document.getElementById("correct-answer").textContent = "";
     document.getElementById("score").textContent = "";
 

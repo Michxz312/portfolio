@@ -117,6 +117,13 @@ thead th {
     display: block;
 }
 
+.intro-button {
+    text-decoration: none;
+    color: #fff;
+    background-color: #000;
+    padding: 10px 16px;
+}
+
 #result {
     text-decoration: none;
     color: #fff;
