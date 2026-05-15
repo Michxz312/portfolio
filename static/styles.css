@@ -11,6 +11,10 @@ body {
     align-items: center;
 }
 
+.page {
+    margin : 2%;
+}
+
 .name {
     color: #fff;
     font-size: 0.8rem;
@@ -89,16 +93,17 @@ thead th {
 }
 
 .intro-button {
-    display: inline-block;
-    text-decoration: none;
-    color: #fff;
     background-color: #000;
+    color: #fff;
     padding: 10px 16px;
+    display: inline-block;
+    transition: 0.2s ease;
 }
 
 .intro-button:hover {
     background-color: #fff;
-    color: #000
+    color: #000;
+    border: 1px solid #000;
 }
 
 .charts {
@@ -115,13 +120,6 @@ thead th {
     width: 100% !important;
     height: 100% !important;
     display: block;
-}
-
-.intro-button {
-    text-decoration: none;
-    color: #fff;
-    background-color: #000;
-    padding: 10px 16px;
 }
 
 #result {
