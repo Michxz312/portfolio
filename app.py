@@ -25,6 +25,10 @@ def contact():
 def project():
     return render_template('projects/project.html')
 
+@app.route('/project/revenue')
+def revenue():
+    return render_template('projects/revenue.html')
+
 if __name__ == '__main__':
     seed()
     app.run(debug = True)
