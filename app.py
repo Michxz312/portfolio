@@ -29,6 +29,10 @@ def project():
 def revenue():
     return render_template('projects/revenue.html')
 
+@app.route('/project/lp')
+def lp():
+    return render_template('projects/LP.html')
+
 if __name__ == '__main__':
     seed()
     app.run(debug = True)
