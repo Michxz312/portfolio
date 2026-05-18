@@ -2,12 +2,83 @@
 
 {% block content %}
     <div class = "explanation">
+        <p>
+            Linear programming is a method to achieve the best outcome (maximum/minimum) in a mathematical model. 
+            The objective function is to optimize a linear function, subject to non-negative, linear equality and inequality constraints.
+        </p>
+        <p>Key terms:</p>
+        <ol>
+            <li>Decision variables: variables that decision-makers control to optimize the objective function</li>
+            <li>Objective function: The mathematical expression representing the quantity to be maximized or minimized</li>
+            <li>Constraints: The restrictions/limitations on the decision variables. Constraints can be represented as linear inequalities or equalities</li>
+            <li>Feasible region: the set of all possible solutions that satisfy the constraints</li>
+            <li>Optimal solution: the solution that maximizes or minimizes the objective function within the feasible region</li>
+        </ol>
 
-    </div> 
+        <h3>Linear Algebra Review</h3>
+
+        <p>
+            Let <code>Ax = b</code>, where <code>A</code> is an
+            <code>m × n</code> matrix.
+        </p>
+
+        <div class="case">
+            <h4>Case 1: m = n (Square Matrix)</h4>
+            <ul>
+                <li>
+                    If <span class="math">rank(A) = n</span>:
+                    <strong>unique solution</strong>
+                </li>
+                <li>
+                    If <span class="math">rank(A) &lt; n</span>:
+                    <ul>
+                    <li>infinitely many solutions if consistent</li>
+                    <li>no solution if inconsistent</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="case">
+            <h4>Case 2: m &lt; n (Underdetermined)</h4>
+            <p>More variables than equations.</p>
+            <ul>
+                <li>
+                    If consistent:
+                    <strong>infinitely many solutions</strong>
+                </li>
+
+                <li>
+                    If inconsistent:
+                    <strong>no solution</strong>
+                </li>
+            </ul>
+        </div>
+
+        <div class="case">
+            <h4>Case 3: m &gt; n (Overdetermined)</h4>
+            <p>More equations than variables.</p>
+            <ul>
+                <li>
+                    If <span class="math">rank(A) = n</span>
+                    and the system is consistent:
+                    <strong>unique solution</strong>
+                </li>
+                <li>
+                    If <span class="math">rank(A) &lt; n</span>
+                    and the system is consistent:
+                    <strong>infinitely many solutions</strong>
+                </li>
+                <li>
+                    If inconsistent:
+                    <strong>no solution</strong>
+                </li>
+            </ul>
+        </div> 
     <div class = "problem">
 
     </div>
     <div class = "solution">
-        
+
     </div>
 {% endblock %}
