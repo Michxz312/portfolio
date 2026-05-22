@@ -80,7 +80,7 @@ async function main() {
 }
 
 function summary() {
-    const tbody = document.querySelector("#word-table");
+    const tbody = document.querySelector("#word-table tbody");
     tbody.innerHTML = wordList.map(item => `
         <tr>
             <td>${item.kanji}</td>
