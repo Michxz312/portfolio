@@ -133,7 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
         currIndex += 1;
         document.getElementById("score").textContent = "score: " + score;
 
-        if (currIndex >= 8) {
+        if (currIndex >= 2) {
             summary()
         } else {
             main()
