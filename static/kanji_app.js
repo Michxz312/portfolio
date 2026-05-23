@@ -80,6 +80,8 @@ async function main() {
 }
 
 function summary() {
+    document.getElementById("submit").classList.remove("show");
+    clear();
     const tbody = document.querySelector("#word-table tbody");
     tbody.innerHTML = wordList.map(item => `
         <tr>
@@ -90,8 +92,6 @@ function summary() {
     `).join("");
 
     document.getElementById("summary").style.display = "block";
-    document.getElementById("true-false").textContent = "";
-    document.getElementById("romaji-input").value = "";
 }
 
 function clear() {
