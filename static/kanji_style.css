@@ -12,6 +12,10 @@
     letter-spacing: 1px;
 }
 
+#romaji-input {
+    text-align: center;
+}
+
 #score {
     margin-bottom: 10px;
 }
@@ -26,6 +30,7 @@
     margin: 10px auto;
     visibility: hidden;
     cursor: pointer;
+    border-radius: 8px;
     background-color: #000000;
     color: #fff;
 }
@@ -36,6 +41,14 @@
 
 #submit:hover {
     transform: translateY(-2px);
+}
+
+#reset-btn {
+    margin-top: 10px;
+    background-color: #000000;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 8px;
 }
 
 button:disabled {
