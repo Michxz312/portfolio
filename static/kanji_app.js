@@ -127,12 +127,12 @@ document.addEventListener("DOMContentLoaded", () => {
         if (guess == currentReading) {
             document.getElementById("true-false").textContent = "correct!";
             score++;
-            check = true;
+            wordList[currIndex].check = true;
         }
         else if (guess != currentReading) {
             document.getElementById("true-false").textContent = "false!";
             document.getElementById("correct-answer").textContent = wordList[currIndex].hiragana;
-            check = false;
+            wordList[currIndex].check = false;
         }
         currIndex += 1;
         document.getElementById("score").textContent = "score: " + score;
