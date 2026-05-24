@@ -31,7 +31,6 @@ async function getRandomKanjiWords() {
         });
 
         if (validWords.length > 0 && validWords.length < 5) {
-            console.log(validWords)
             return validWords;
         }
     }
@@ -71,7 +70,6 @@ async function main() {
         words.push(currentWord)
         currentReading = kanjiInfo.japanese?.[0]?.reading;
         wordList.push({"kanji": currentWord, "hiragana": currentReading, "definition":kanjiInfo.senses?.[0]?.english_definitions || [], "check": check})
-        console.log(wordList)
         document.getElementById("display").textContent = currentWord;
         document.getElementById("submit").classList.add("show");
     } catch (err) {
@@ -90,11 +88,12 @@ function summary() {
             <td>${item.kanji}</td>
             <td>${item.hiragana}</td>
             <td>${item.definition.join(", ")}</td>
+            <td>${item.check=== false?"✗" : "✓"}</td>
         </tr>
     `).join("");
 
     document.getElementById("summary").style.display = "block";
-    document.getElementById("score").textContent = score;
+    document.getElementById("score").textContent = "score: " + score;
 }
 
 function clear() {
