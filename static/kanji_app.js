@@ -1,6 +1,7 @@
 let currentReading = "";
 let wordList = [];
 let words = []
+let check = false;
 let currIndex = 0;
 let score = 0;
 let isLoading = false;
@@ -69,7 +70,8 @@ async function main() {
         const currentWord = kanjiInfo.japanese?.[0]?.word;
         words.push(currentWord)
         currentReading = kanjiInfo.japanese?.[0]?.reading;
-        wordList.push({"kanji": currentWord, "hiragana": currentReading, "definition":kanjiInfo.senses?.[0]?.english_definitions || []})
+        wordList.push({"kanji": currentWord, "hiragana": currentReading, "definition":kanjiInfo.senses?.[0]?.english_definitions || [], "check": check})
+        console.log(wordList)
         document.getElementById("display").textContent = currentWord;
         document.getElementById("submit").classList.add("show");
     } catch (err) {
@@ -92,6 +94,7 @@ function summary() {
     `).join("");
 
     document.getElementById("summary").style.display = "block";
+    document.getElementById("score").textContent = score;
 }
 
 function clear() {
@@ -125,10 +128,12 @@ document.addEventListener("DOMContentLoaded", () => {
         if (guess == currentReading) {
             document.getElementById("true-false").textContent = "correct!";
             score++;
+            check = true;
         }
         else if (guess != currentReading) {
             document.getElementById("true-false").textContent = "false!";
             document.getElementById("correct-answer").textContent = wordList[currIndex].hiragana;
+            check = false;
         }
         currIndex += 1;
         document.getElementById("score").textContent = "score: " + score;
