@@ -33,6 +33,10 @@ def revenue():
 def lp():
     return render_template('projects/LP.html')
 
+@app.route('/project/meal')
+def meal():
+    return render_template('projects/meal.html')
+
 if __name__ == '__main__':
     seed()
     app.run(debug = True)
