@@ -11,6 +11,12 @@ body {
     align-items: center;
 }
 
+.navbar ul {
+    display: inline-flex;
+    gap: 10px;
+    list-style: none;
+}
+
 .page {
     margin : 2%;
 }
