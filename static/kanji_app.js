@@ -57,6 +57,10 @@ function setLoading(load) {
     btn.textContent = load ? "Loading..." : "Submit";
 }
 
+function selectStage() {
+    // add stages to select 
+}
+
 async function main() {
     try {
         setLoading(true);
