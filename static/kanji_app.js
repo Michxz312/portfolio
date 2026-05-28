@@ -5,6 +5,7 @@ let check = false;
 let currIndex = 0;
 let score = 0;
 let isLoading = false;
+let stage = 5;
 
 async function getRandomKanjiWords() {
     const res = await fetch('https://kanjiapi.dev/v1/kanji/jlpt-2')
@@ -126,6 +127,17 @@ function resetGame() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll(".stage-btn").forEach(button => {
+        button.addEventListener("click", () => {
+            stage = Number(button.dataset.stage);
+
+            document.getElementById("stages").style.display = "none";
+            document.getElementById("game-container").style.display = "block";
+
+            main();
+        });
+    });
+
     document.getElementById("submit").addEventListener("click", () => {
         const guess = document.getElementById("romaji-input").value.trim();
         if (guess == currentReading) {
@@ -148,7 +160,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    main();
+    document.getElementById("reset-btn").addEventListener("click", resetGame);
+    document.getElementById("game-container").style.display = "none";
 })
 
-document.getElementById("reset-btn").addEventListener("click", resetGame);
