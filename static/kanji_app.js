@@ -116,14 +116,14 @@ function resetGame() {
     words = []
     currIndex = 0;
     score = 0;
+    document.getElementById("game-container").style.display = "none";
     document.getElementById("summary").style.display = "none";
+    document.getElementById("stages").style.display = "block";
+
     document.getElementById("true-false").textContent = "";
     document.getElementById("correct-answer").textContent = "";
     document.getElementById("score").textContent = "";
-
     document.getElementById("romaji-input").value = "";
-    
-    main();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
