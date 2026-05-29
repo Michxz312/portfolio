@@ -16,19 +16,9 @@ async function getRandomKanjiWords() {
         const randomKanji = kanjiList[Math.floor(Math.random() * kanjiList.length)];
         const wordRes = await fetch(`/kanji/jisho/${randomKanji}`);
         const wordData = await wordRes.json();
-        
+        console.log(wordData)
         const validWords = wordData.data.filter(word => {
-            const containsKanji = word.japanese?.some(j => j.word?.includes(randomKanji));
-            const isN2 = word.jlpt?.includes("jlpt-n2");
-            
-            const wanikaniTag = word.tags?.find(tag =>
-                tag.startsWith("wanikani")
-            );
-
-            const wanikaniLevel = wanikaniTag?parseInt(wanikaniTag.replace("wanikani", "")) : 0;
-            const isAbove24 = wanikaniLevel >= 24;
-
-            return containsKanji && (isAbove24 || isN2)
+            selectStage(word, randomKanji)
         });
 
         if (validWords.length > 0 && validWords.length < 5) {
@@ -58,15 +48,32 @@ function setLoading(load) {
     btn.textContent = load ? "Loading..." : "Submit";
 }
 
-function selectStage() {
-    // add stages to select 
+function selectStage(word, randomKanji) {
+    const containsKanji = word.japanese?.some(j => j.word?.includes(randomKanji));
+    if (!containsKanji) return false;
+
+    const jlptLevels = word.jlpt || [];
+    const wanikaniTag = word.tags?.find(tag => tag.startsWith("wanikani"));
+    const wanikani = wanikaniTag
+        ? Number(wanikaniTag.replace("wanikani", ""))
+        : 0;
+
+    console.log(wanikani)
+    if (stage == 1) return jlptLevels.includes("jlpt-n1") || wanikani >= 50;
+    if (stage == 2) return jlptLevels.includes("jlpt-n2") || (wanikani < 50 && wanikani >= 30);
+    if (stage == 3) return jlptLevels.includes("jlpt-n3") || (wanikani < 40 && wanikani >= 20);
+    if (stage == 4) return jlptLevels.includes("jlpt-n4") || (wanikani < 25 && wanikani >= 10);
+    if (stage == 5) return jlptLevels.includes("jlpt-n5") || (wanikani < 16 && wanikani >= 0);
+
+    return false;
 }
 
 async function main() {
     try {
         setLoading(true);
-
+        
         const n2Words = await getRandomKanjiWords();
+        console.log(n2Words)
         clear()
         const index = Math.floor(Math.random() * n2Words.length);
         const kanjiInfo = n2Words[index];
@@ -140,7 +147,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById("submit").addEventListener("click", () => {
         const guess = document.getElementById("romaji-input").value.trim();
-        if (guess == currentReading) {
+        if (guess === currentReading) {
             document.getElementById("true-false").textContent = "correct!";
             score++;
             wordList[currIndex].check = true;
