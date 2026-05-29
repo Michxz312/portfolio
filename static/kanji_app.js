@@ -18,9 +18,8 @@ async function getRandomKanjiWords() {
         const wordData = await wordRes.json();
         console.log(wordData)
         const validWords = wordData.data.filter(word => {
-            selectStage(word, randomKanji)
+            return selectStage(word, randomKanji);
         });
-
         if (validWords.length > 0 && validWords.length < 5) {
             return validWords;
         }
@@ -58,7 +57,6 @@ function selectStage(word, randomKanji) {
         ? Number(wanikaniTag.replace("wanikani", ""))
         : 0;
 
-    console.log(wanikani)
     if (stage == 1) return jlptLevels.includes("jlpt-n1") || wanikani >= 50;
     if (stage == 2) return jlptLevels.includes("jlpt-n2") || (wanikani < 50 && wanikani >= 30);
     if (stage == 3) return jlptLevels.includes("jlpt-n3") || (wanikani < 40 && wanikani >= 20);
