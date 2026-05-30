@@ -21,7 +21,7 @@ async function getRandomKanjiWords() {
             return selectStage(word, randomKanji);
         });
         if (validWords.length > 0 && validWords.length < 5) {
-            return validWords;
+            return validWords[0];
         }
     }
 }
@@ -68,13 +68,10 @@ function selectStage(word, randomKanji) {
 
 async function main() {
     try {
-        setLoading(true);
-        
-        const n2Words = await getRandomKanjiWords();
-        console.log(n2Words)
+        setLoading(true);   
+        const kanjiInfo = await getRandomKanjiWords();
+        console.log(kanjiInfo)
         clear()
-        const index = Math.floor(Math.random() * n2Words.length);
-        const kanjiInfo = n2Words[index];
 
         const currentWord = kanjiInfo.japanese?.[0]?.word;
         words.push(currentWord)
