@@ -11,7 +11,7 @@ async function getRandomKanjiWords() {
     const res = await fetch(`https://kanjiapi.dev/v1/kanji/jlpt-${stage}`)
     const vocab = await res.json();
     const kanjiList = await sendKanji(vocab);
-    console.log(kanjiList)
+
     while (true) {
         const randomKanji = kanjiList[Math.floor(Math.random() * kanjiList.length)];
         const wordRes = await fetch(`/kanji/jisho/${randomKanji}`);
