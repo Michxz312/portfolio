@@ -60,7 +60,7 @@ function selectStage(word, randomKanji) {
     if (stage == 2) return jlptLevels.includes("jlpt-n2") || (wanikani < 50 && wanikani >= 30);
     if (stage == 3) return jlptLevels.includes("jlpt-n3") || (wanikani < 40 && wanikani >= 20);
     if (stage == 4) return jlptLevels.includes("jlpt-n4") || (wanikani < 25 && wanikani >= 10);
-    if (stage == 5) return jlptLevels.includes("jlpt-n5") || (wanikani < 16 && wanikani >= 0);
+    if (stage == 5) return jlptLevels.includes("jlpt-n5") || jlptLevels.length === 0;
 
     return false;
 }
