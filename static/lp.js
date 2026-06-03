@@ -1,10 +1,14 @@
+const a1 = parseFloat(document.getElementById("a1").value);
+const b1 = parseFloat(document.getElementById("b1").value);
+const c1 = parseFloat(document.getElementById("c1").value);
+const a2 = parseFloat(document.getElementById("a2").value);
+const b2 = parseFloat(document.getElementById("b2").value);
+const c2 = parseFloat(document.getElementById("c2").value);
+const a3 = parseFloat(document.getElementById("a3").value);
+const b3 = parseFloat(document.getElementById("b3").value);
+const c3 = parseFloat(document.getElementById("c3").value);
+
 function analyzeSystem() {
-    const a1 = parseFloat(document.getElementById("a1").value);
-    const b1 = parseFloat(document.getElementById("b1").value);
-    const c1 = parseFloat(document.getElementById("c1").value);
-    const a2 = parseFloat(document.getElementById("a2").value);
-    const b2 = parseFloat(document.getElementById("b2").value);
-    const c2 = parseFloat(document.getElementById("c2").value);
     const resultDiv = document.getElementById("result");
     const det = a1 * b2 - a2 * b1;
 
@@ -42,6 +46,33 @@ function nearlyEqual(a, b, epsilon = 1e-10) {
     return Math.abs(a - b) < epsilon;
 }
 
+function drawGraph() {
+    let data = [
+        createLine(a1,b1,c1,"Line 1"),
+        createLine(a2,b2,c2,"Line 2"),
+        createLine(a3,b3,c3,"Line 3")
+    ];
+}
+
+function createLine(a,b,c, name) {
+    let x = []
+    let y = []
+    for (let xi=-10; xi<=10; xi+=0.1) {
+        x.push(x1);
+        if (Math.abs(b) >= 1e-10) {
+            y.push((c- a*xi)/b);
+        } else {
+            y.push(null);
+        }
+    }
+    return {
+        x:x,
+        y:y,
+        mode:'lines',
+        name:name
+    }
+}
 document.getElementById("analyze").addEventListener("click", () => {
     analyzeSystem();
+    drawGraph();
 });

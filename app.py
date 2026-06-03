@@ -35,7 +35,7 @@ def revenue():
 
 @app.route('/project/lp')
 def lp():
-    return render_template('projects/LP.html')
+    return render_template('projects/LP/LP.html')
 
 @app.route('/project/meal')
 def meal():
