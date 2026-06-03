@@ -1,45 +1,50 @@
-const a1 = parseFloat(document.getElementById("a1").value);
-const b1 = parseFloat(document.getElementById("b1").value);
-const c1 = parseFloat(document.getElementById("c1").value);
-const a2 = parseFloat(document.getElementById("a2").value);
-const b2 = parseFloat(document.getElementById("b2").value);
-const c2 = parseFloat(document.getElementById("c2").value);
-const a3 = parseFloat(document.getElementById("a3").value);
-const b3 = parseFloat(document.getElementById("b3").value);
-const c3 = parseFloat(document.getElementById("c3").value);
+function getInputs() {
+    return {
+        a1 : parseFloat(document.getElementById("a1").value),
+        b1 : parseFloat(document.getElementById("b1").value),
+        c1 : parseFloat(document.getElementById("c1").value),
+        a2 : parseFloat(document.getElementById("a2").value),
+        b2 : parseFloat(document.getElementById("b2").value),
+        c2 : parseFloat(document.getElementById("c2").value),
+        a3 : parseFloat(document.getElementById("a3").value),
+        b3 : parseFloat(document.getElementById("b3").value),
+        c3 : parseFloat(document.getElementById("c3").value)
+    };
+}
 
-function analyzeSystem() {
+function showMatrix(inputs) {
+    document.getElementById("matrixDisplay").innerHTML = `
+    $$
+    \\begin{bmatrix}
+    ${inputs.a1} & ${inputs.b1} \\\\
+    ${inputs.a2} & ${inputs.b2} \\\\
+    ${inputs.a3} & ${inputs.b3}
+    \\end{bmatrix}
+
+    \\begin{bmatrix}
+    x \\\\
+    y
+    \\end{bmatrix}
+    =
+
+    \\begin{bmatrix}
+    ${inputs.c1} \\\\
+    ${inputs.c2} \\\\
+    ${inputs.c3}
+    \\end{bmatrix}
+
+    $$
+    `;
+    MathJax.typeset();
+}
+
+function analyzeSystem(inputs) {
+    const { a1, b1, c1, a2, b2, c2, a3, b3, c3 } = inputs;
+    showMatrix(inputs);
+
     const resultDiv = document.getElementById("result");
-    const det = a1 * b2 - a2 * b1;
-
-    if (det !== 0) {
-        const x = (c1 * b2 - c2 * b1) / det;
-        const y = (a1 * c2 - a2 * c1) / det;
-
-        resultDiv.className = "result unique";
-        resultDiv.innerHTML = 
-        `Unique Solution<br><br>
-        x = ${x.toFixed(2)}<br>
-        y = ${y.toFixed(2)}`;
-
-    } else {
-    const ratioA = a1 / a2;
-    const ratioB = b1 / b2;
-    const ratioC = c1 / c2;
-        if (nearlyEqual(ratioA, ratioB) && nearlyEqual(ratioB, ratioC)) {
-        resultDiv.className = "result infinite";
-        resultDiv.innerHTML = `
-            Infinitely Many Solutions<br><br>
-            The equations represent the same line.
-        `;
-        } else {
-            resultDiv.className = "result none";
-            resultDiv.innerHTML = `
-                No Solution<br><br>
-                The lines are parallel and never intersect.
-            `;
-        }
-    }
+    resultDiv.innerHTML = 
+        `solution<br><br>`;
 }
 
 function nearlyEqual(a, b, epsilon = 1e-10) {
@@ -52,13 +57,20 @@ function drawGraph() {
         createLine(a2,b2,c2,"Line 2"),
         createLine(a3,b3,c3,"Line 3")
     ];
+
+    Plotly.newPlot('plot', data, {
+        title: '2D Geometry of Ax = b',
+        xaxis: {title:'x'},
+        yaxis: {title:'y'},
+        showlegend:true
+    });
 }
 
 function createLine(a,b,c, name) {
     let x = []
     let y = []
     for (let xi=-10; xi<=10; xi+=0.1) {
-        x.push(x1);
+        x.push(xi);
         if (Math.abs(b) >= 1e-10) {
             y.push((c- a*xi)/b);
         } else {
@@ -73,6 +85,7 @@ function createLine(a,b,c, name) {
     }
 }
 document.getElementById("analyze").addEventListener("click", () => {
-    analyzeSystem();
-    drawGraph();
+    const inputs = getInputs();
+    analyzeSystem(inputs);
+    drawGraph(inputs);
 });
