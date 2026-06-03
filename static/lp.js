@@ -47,21 +47,18 @@ function analyzeSystem(inputs) {
         `solution<br><br>`;
 }
 
-function nearlyEqual(a, b, epsilon = 1e-10) {
-    return Math.abs(a - b) < epsilon;
-}
-
-function drawGraph() {
+function drawGraph(inputs) {
+    const { a1, b1, c1, a2, b2, c2, a3, b3, c3 } = inputs;
     let data = [
         createLine(a1,b1,c1,"Line 1"),
         createLine(a2,b2,c2,"Line 2"),
         createLine(a3,b3,c3,"Line 3")
     ];
 
-    Plotly.newPlot('plot', data, {
+    Plotly.newPlot("graphLP", data, {
         title: '2D Geometry of Ax = b',
-        xaxis: {title:'x'},
-        yaxis: {title:'y'},
+        xaxis: {title:'x', fixedrange:true},
+        yaxis: {title:'y', fixedrange:true},
         showlegend:true
     });
 }
@@ -69,7 +66,7 @@ function drawGraph() {
 function createLine(a,b,c, name) {
     let x = []
     let y = []
-    for (let xi=-10; xi<=10; xi+=0.1) {
+    for (let xi=-5; xi<=5; xi+=0.1) {
         x.push(xi);
         if (Math.abs(b) >= 1e-10) {
             y.push((c- a*xi)/b);
