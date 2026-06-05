@@ -53,14 +53,45 @@ function drawGraph(inputs) {
         createLine(a1,b1,c1,"Line 1"),
         createLine(a2,b2,c2,"Line 2"),
         createLine(a3,b3,c3,"Line 3")
+        computeFeasibleRegion(inputs, "<=")
     ];
 
     Plotly.newPlot("graphLP", data, {
-        title: '2D Geometry of Ax = b',
         xaxis: {title:'x', fixedrange:true},
         yaxis: {title:'y', fixedrange:true},
         showlegend:true
     });
+}
+
+function computeFeasibleRegion(inputs, sign){
+    const { a1, b1, c1, a2, b2, c2, a3, b3, c3 } = inputs;
+    let x = []
+    let y = []
+    for (let xi=-5; xi<=5; xi+=0.05) {
+        for (let yi=-5; yi<=5;yi+=0.05) {
+            const ok = check(a1,b1,c1,xi,yi,sign) && 
+            check(a2,b2,c2,xi,yi,sign) && 
+            check(a3,b3,c3,xi,yi,sign);
+            if(ok) {
+                x.push(xi);
+                y.push(yi);
+            }
+        }
+    }
+    return {
+        x:x,
+        y:y,
+        mode:'markers',
+        name:"Feasible Region",
+        marker:{
+            size: 3,
+            color: "rgb(47, 71, 47)"
+        }
+    }
+}
+
+function check(a, b, c, x, y, sign) {
+
 }
 
 function createLine(a,b,c, name) {
