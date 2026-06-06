@@ -23,6 +23,10 @@
             <code>m × n</code> matrix. Rank of a matrix is the number of linearly independent rows.
         </p>
 
+        <p>Inconsistent: If the left-hand side of the equation is the same, but the right-hand side is different, 
+            then it is impossible to solve and no solution exists.
+        </p>
+
         <div class="case">
             <h4>Case 1: m = n (Square Matrix)</h4>
             <ul>
@@ -45,7 +49,7 @@
             <p>More variables than equations.</p>
             <ul>
                 <li>
-                    If consistent:
+                    If rank(A) = m and is consistent:
                     <strong>infinitely many solutions</strong>
                 </li>
 
@@ -76,6 +80,27 @@
                 </li>
             </ul>
         </div> 
+
+        <div class="explanation">
+            <h3>Relation to linear programming</h3>
+            <p>When we have Ax = b, the solution is the intersection point of the lines.
+                Imagine two system of equations. Each equation represents a line. 
+                The solution is the intersection point of the lines.</p>
+            <ul>
+                <li>If there is an intersection, we have a unique solution.</li>
+                <li>If it's the same line, then there are infinitely many solutions</li>
+                <li>If there are parallel lines, then it is inconsistent (no solution)</li>
+            </ul>
+            <p>Optimization problems usually involve limits/requirements. In optimization, the matrix A, 
+                represents each resources/activity used, x are the decision variables, and b are the limits.
+                We have Ax &leq; b to represent the limits. The inequalities define a feasible region which contains
+                all possible solutions satisfying the constraints and the objective function is then optimized
+                over the feasible region.
+
+                Even though linear programming uses inequalities, the concepts from linear algebra such as systems of 
+                equations, rank, consistency and intersections are still fundamental to undestanding optimization problems.
+            </p>
+        </div>
     <div class = "problem">
         <h3>Ax &leq; b (Feasible Region) Visualization</h3>
         <div class="equation">
