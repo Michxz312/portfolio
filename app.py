@@ -5,11 +5,12 @@ from kanji_game import kanji_game_bp
 from scheduling_project.seed import seed
 from dotenv import load_dotenv
 
-
 app = Flask(__name__)
 app.register_blueprint(scheduling_bp)
 app.register_blueprint(assignment_bp)
 app.register_blueprint(kanji_game_bp)
+
+load_dotenv()
 
 @app.route('/')
 def index():
