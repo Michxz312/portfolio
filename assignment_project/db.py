@@ -3,11 +3,11 @@ import os
 
 def create_connection():
     return pymysql.connect(
-        host="localhost",
-        user="root",
-        database="mydb",
+        host=os.getenv("DB_HOST"),
+        user=os.getenv("DB_USER"),
+        database=os.getenv("DB_NAME"),
         password=os.getenv("MYSQL_PASSWORD"),
-        charset="utf8",
+        charset="utf8mb4",
         cursorclass = pymysql.cursors.DictCursor
     )
 

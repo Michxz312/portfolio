@@ -3,6 +3,8 @@ from scheduling_project import scheduling_bp
 from assignment_project import assignment_bp
 from kanji_game import kanji_game_bp
 from scheduling_project.seed import seed
+from dotenv import load_dotenv
+
 
 app = Flask(__name__)
 app.register_blueprint(scheduling_bp)
